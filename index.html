@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Portal - Curated DeFi Opportunities</title>
+    <meta name="description" content="Discover curated DeFi opportunities with transparent scoring and methodology. Your trusted portal to decentralized finance.">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/c96rly.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: rgba(56, 189, 248, 0.12);
+            --secondary-blue: rgba(30, 58, 138, 0.22);
+            --gradient-start: rgba(56, 189, 248, 0.10);
+            --gradient-mid: rgba(30, 58, 138, 0.22);
+            --gradient-end: rgb(2, 6, 23);
+        }
+        
+        body {
+            background-color: rgb(2, 6, 23);
+            color: rgb(241, 245, 249);
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .glass {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .soft-glow {
+            box-shadow: 0 0 60px rgba(56, 189, 248, 0.12), 0 0 120px rgba(30, 58, 138, 0.08);
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(45deg, rgb(37, 99, 235), rgb(59, 130, 246));
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.25);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgb(241, 245, 249);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .icon-left {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+        
+        .faq-number, .guide-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(56, 189, 248, 0.15), rgba(56, 189, 248, 0.25));
+            color: rgb(241, 245, 249);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .accordion-open {
+            max-height: 1000px;
+        }
+        
+        .drawer {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        
+        .drawer-open {
+            transform: translateX(0);
+        }
+        
+        .drawer-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        
+        .drawer-overlay-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .accordion-content, .drawer, .drawer-overlay {
+                transition: none;
+            }
+        }
+        
+        .bg-gradient-custom {
+            background: radial-gradient(ellipse at top right, var(--gradient-start), transparent 35%), 
+                        radial-gradient(ellipse at bottom left, var(--gradient-mid), transparent 40%), 
+                        var(--gradient-end);
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-title {
+            background: linear-gradient(to right, #e2e8f0, #94a3b8, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            to {
+                background-position: 200% center;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .gradient-border {
+            position: relative;
+            border-radius: 16px;
+            z-index: 1;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, rgba(56, 189, 248, 0.5), rgba(30, 58, 138, 0.5));
+            border-radius: 17px;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-gradient-custom">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 nav-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <img class="h-8 w-auto" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
+                    <span class="ml-2 text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">DeFi Portal</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
+                    <a href="#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
+                    <a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
+                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
+                </nav>
+                
+                <!-- Desktop CTA Button -->
+                <div class="hidden md:block">
+                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        <i class="fas fa-robot icon-left"></i>
+                        Free Chat Bot
+                    </a>
+                </div>
+                
+                <!-- Mobile Hamburger -->
+                <div class="md:hidden">
+                    <button type="button" class="btn-secondary" aria-label="Open navigation" id="hamburger-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 fade-in">
+            <div class="text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 hero-title">Find Curated DeFi Opportunities — Safely and Transparently</h1>
+                <p class="text-xl sm:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">We research, score, and showcase decentralized finance projects with a clear methodology, so you can explore with confidence.</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#projects" class="btn-primary">
+                        <i class="fas fa-rocket icon-left"></i>
+                        Explore Projects
+                    </a>
+                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                        <i class="fas fa-robot icon-left"></i>
+                        Free Chat Bot
+                    </a>
+                </div>
+
+                <div class="mt-12 flex justify-center">
+                    <div class="glass soft-glow p-1 rounded-2xl w-full max-w-2xl">
+                        <iframe class="rounded-xl w-full aspect-video"
+                                src="https://www.youtube.com/embed/vuHUjIBBbyQ"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <h2 class="text-3xl font-bold text-center mb-4">About DeFi Portal</h2>
+            <p class="text-slate-400 text-center max-w-3xl mx-auto mb-12">Discover how we're transforming DeFi discovery with transparent scoring and community-driven insights</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">What is DeFi Portal?</h3>
+                    </div>
+                    <p class="text-slate-300">DeFi Portal is a curated portal that highlights decentralized finance projects after a structured review, helping users discover opportunities aligned with their risk tolerance.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Mission</h3>
+                    </div>
+                    <p class="text-slate-300">To raise the standard of due diligence in DeFi by publishing transparent criteria, consistent scoring, and concise summaries anyone can understand.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Why We Exist</h3>
+                    </div>
+                    <p class="text-slate-300">DeFi moves fast and information is fragmented. We centralize key signals—security, liquidity, team, and tokenomics—into a digestible format.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-filter"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">How We Curate</h3>
+                    </div>
+                    <p class="text-slate-300">Projects are shortlisted through open-source intelligence, on-chain data, and third-party audit references before being added to our watchlist.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Transparent Scoring</h3>
+                    </div>
+                    <p class="text-slate-300">Each listing displays a risk tier and context notes. Our scoring rubric is public and continuously refined with community feedback.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Independent & Educational</h3>
+                    </div>
+                    <p class="text-slate-300">We do not offer financial advice or paid promotion. Our content is educational and designed to support individual decision-making.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology Section -->
+        <section id="methodology" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Our Methodology</h2>
+            <p class="text-slate-400 text-center max-w-3xl mx-auto mb-12">Our rigorous evaluation process ensures every project meets high standards before being featured</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Security & Audits</h3>
+                    </div>
+                    <p class="text-slate-300">We check for formal audits, open-source contracts, time-locks, and multi-sig controls, and we review known vulnerabilities for the protocol class.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Team & Governance</h3>
+                    </div>
+                    <p class="text-slate-300">We assess team transparency, track record, governance mechanisms, and response quality to disclosures or incidents.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Tokenomics & Incentives</h3>
+                    </div>
+                    <p class="text-slate-300">We analyze emissions, utility, vesting schedules, treasury design, and sustainability of incentives over time.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Liquidity & Integrations</h3>
+                    </div>
+                    <p class="text-slate-300">We review liquidity depth, chain support, oracle design, key integrations, and composability risks.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">On-Chain Health</h3>
+                    </div>
+                    <p class="text-slate-300">We monitor TVL trends, user activity, address distribution, and anomalous patterns using on-chain analytics.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left text-blue-400">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Community Trust</h3>
+                    </div>
+                    <p class="text-slate-300">We evaluate community engagement, social sentiment, and responsiveness to user concerns and feedback.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Curated Projects</h2>
+            <p class="text-slate-400 text-center max-w-3xl mx-auto mb-12">Explore our handpicked selection of DeFi projects with transparent risk assessments</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-center mb-4">
+                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/loqztx.png" alt="BNBNest logo">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold">BNBNest</h3>
+                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-slate-400">Risk</p>
+                            <p class="font-medium text-yellow-400">Medium</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">TVL</p>
+                            <p class="font-medium">$0.00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-400/10 text-yellow-400">
+                            <i class="fas fa-clock mr-1"></i> Coming Soon
+                        </span>
+                    </div>
+                    
+                    <a href="https://chat.whatsapp.com/I1uaDXJlLaJGKRMFQGJcyn?mode=ems_copy_c" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full justify-center">
+                        <i class="fas fa-external-link-alt icon-left"></i>
+                        Details
+                    </a>
+                </div>
+
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-center mb-4">
+                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/bp973e.png" alt="GemHive logo">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold">GemHive</h3>
+                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-slate-400">Risk</p>
+                            <p class="font-medium text-yellow-400">Medium</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">TVL</p>
+                            <p class="font-medium">$0.00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-400/10 text-yellow-400">
+                            <i class="fas fa-clock mr-1"></i> Coming Soon
+                        </span>
+                    </div>
+                    
+                    <a href="https://chat.whatsapp.com/CHUCNojLRvgCSCz2d2HDgD?mode=ems_copy_t" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full justify-center">
+                        <i class="fas fa-external-link-alt icon-left"></i>
+                        Details
+                    </a>
+                </div>
+
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-center mb-4">
+                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/ej7abf.png" alt="BNB Capital logo">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold">BNB Capital</h3>
+                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-slate-400">Risk</p>
+                            <p class="font-medium text-yellow-400">Medium</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">TVL</p>
+                            <p class="font-medium">240.60 BNB</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-400/10 text-green-400">
+                            <i class="fas fa-check-circle mr-1"></i> Live Now
+                        </span>
+                    </div>
+                    
+                    <a href="https://chat.whatsapp.com/FEWy1a95Yha6H1yK2jMwUM" class="btn-secondary w-full justify-center">
+                        <i class="fas fa-external-link-alt icon-left"></i>
+                        Details
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                    <i class="fas fa-plus icon-left"></i>
+                    Load More Projects
+                </a>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Frequently Asked Questions</h2>
+            <p class="text-slate-400 text-center max-w-3xl mx-auto mb-12">Find answers to common questions about our platform and methodology</p>
+            
+            <div class="space-y-4">
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">1</span>
+                            <span class="font-semibold">Is DeFi Portal financial advice?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">No. DeFi Portal is an educational resource. Always conduct your own research and consider your risk tolerance.</p>
+                    </div>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">2</span>
+                            <span class="font-semibold">How are projects selected?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">Projects are shortlisted via research and must pass baseline checks on security, governance, tokenomics, liquidity, and on-chain health.</p>
+                    </div>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">3</span>
+                            <span class="font-semibold">Do you accept listings or promotions?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">We may review community suggestions but we do not sell listings. Reviews remain independent and criteria-based.</p>
+                    </div>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">4</span>
+                            <span class="font-semibold">What do risk tiers mean?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">Risk tiers summarize relative risk given available data. They do not predict future performance or guarantee safety.</p>
+                    </div>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl gradient-border">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">5</span>
+                            <span class="font-semibold">How often are pages updated?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">We review listings periodically and when material events occur (audits, upgrades, incidents).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <div class="glass p-12 rounded-2xl gradient-border">
+                <h2 class="text-3xl font-bold mb-6">Ready to Explore DeFi Safely?</h2>
+                <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">Join our community of informed investors and discover vetted DeFi opportunities with transparent risk scoring.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#projects" class="btn-primary">
+                        <i class="fas fa-rocket icon-left"></i>
+                        Explore Projects
+                    </a>
+                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                        <i class="fas fa-robot icon-left"></i>
+                        Free Chat Bot
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col items-center">
+                <img class="h-10 w-auto mb-6" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
+                
+                <p class="text-slate-400 text-center max-w-2xl mb-8">
+                    DeFi Portal is an educational portal. None of the information provided constitutes financial, investment, or legal advice. Always do your own research (DYOR).
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-6 mb-8">
+                    <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
+                    <a href="#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
+                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
+                    <a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
+                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white transition-colors">Free Chat Bot</a>
+                </div>
+                
+                <div class="flex gap-4 mb-8">
+                    <!-- Telegram -->
+                    <a href="https://t.me/DeFiPortalChannel" target="_blank" rel="noopener noreferrer" 
+                       class="text-slate-400 hover:text-blue-400 transition-colors text-xl" aria-label="Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+
+                    <!-- YouTube -->
+                    <a href="https://www.youtube.com/@DeFiPortal" target="_blank" rel="noopener noreferrer" 
+                       class="text-slate-400 hover:text-red-500 transition-colors text-xl" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+
+                    <!-- Twitter -->
+                    <a href="#" target="_blank" rel="noopener noreferrer" 
+                       class="text-slate-400 hover:text-sky-400 transition-colors text-xl" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+                
+                <p class="text-slate-500 text-sm">© 2025 DeFi Portal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Drawer Navigation -->
+    <div class="drawer-overlay fixed inset-0 bg-black/70 z-50" id="drawer-overlay"></div>
+    
+    <div class="drawer fixed top-0 right-0 h-full w-80 bg-slate-900 z-50 p-6" id="drawer">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-xl font-semibold">Navigation</h2>
+            <button type="button" id="close-drawer" aria-label="Close navigation" class="text-slate-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <nav class="space-y-4">
+            <a href="#home" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <i class="fas fa-home icon-left"></i>
+                Home
+            </a>
+            
+            <a href="#about" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <i class="fas fa-info-circle icon-left"></i>
+                About
+            </a>
+            
+            <a href="#methodology" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <i class="fas fa-chart-line icon-left"></i>
+                Methodology
+            </a>
+            
+            <a href="#faq" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <i class="fas fa-question-circle icon-left"></i>
+                FAQ
+            </a>
+            
+            <a href="#projects" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <i class="fas fa-project-diagram icon-left"></i>
+                Projects
+            </a>
+            
+            <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary w-full justify-center mt-6">
+                <i class="fas fa-robot icon-left"></i>
+                Free Chat Bot
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Close mobile drawer if open
+                    if (document.getElementById('drawer').classList.contains('drawer-open')) {
+                        closeDrawer();
+                    }
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update URL without page reload
+                    history.pushState(null, null, targetId);
+                }
+            });
+        });
+
+        // Drawer functionality
+        const drawer = document.getElementById('drawer');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const closeDrawerBtn = document.getElementById('close-drawer');
+        
+        function openDrawer() {
+            drawer.classList.add('drawer-open');
+            drawerOverlay.classList.add('drawer-overlay-open');
+            document.body.style.overflow = 'hidden';
+            
+            // Set focus to first element in drawer
+            const firstFocusable = drawer.querySelector('a, button');
+            if (firstFocusable) firstFocusable.focus();
+        }
+        
+        function closeDrawer() {
+            drawer.classList.remove('drawer-open');
+            drawerOverlay.classList.remove('drawer-overlay-open');
+            document.body.style.overflow = 'auto';
+            
+            // Return focus to hamburger button
+            hamburgerBtn.focus();
+        }
+        
+        hamburgerBtn.addEventListener('click', openDrawer);
+        closeDrawerBtn.addEventListener('click', closeDrawer);
+        drawerOverlay.addEventListener('click', closeDrawer);
+        
+        // Close drawer with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('drawer-open')) {
+                closeDrawer();
+            }
+        });
+        
+        // Trap focus inside drawer when open
+        drawer.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab' || !drawer.classList.contains('drawer-open')) return;
+            
+            const focusableElements = drawer.querySelectorAll('a[href], button, textarea, input, select');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+            
+            if (e.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    lastElement.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === lastElement) {
+                    firstElement.focus();
+                    e.preventDefault();
+                }
+            }
+        });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const isOpen = button.getAttribute('aria-expanded') === 'true';
+                
+                // Toggle accordion
+                button.setAttribute('aria-expanded', !isOpen);
+                content.classList.toggle('accordion-open');
+                
+                // Rotate arrow icon
+                const icon = button.querySelector('svg');
+                if (icon) {
+                    icon.classList.toggle('rotate-180');
+                }
+            });
+        });
+
+        // Add fade-in animation to sections on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
