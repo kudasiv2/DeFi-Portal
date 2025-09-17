@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# Redirect to clean URLs without .html extension
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^home$ index.html [L]
+RewriteRule ^about$ index.html#about [L]
+RewriteRule ^methodology$ index.html#methodology [L]
+RewriteRule ^faq$ index.html#faq [L]
+RewriteRule ^guides$ index.html#guides [L]
+RewriteRule ^projects$ index.html#projects [L]
+RewriteRule ^audit/BNBCapital$ BNBCapital.html [L]
+
+# Redirect HTML files to clean URLs
+RewriteCond %{THE_REQUEST} \s/+(.*?)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# Handle clean URLs for existing HTML files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
