@@ -3,847 +3,1390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeFi Portal - Curated DeFi Opportunities</title>
-    <meta name="description" content="Discover curated DeFi opportunities with transparent scoring and methodology. Your trusted portal to decentralized finance.">
-    <link rel="icon" type="image/png" href="https://files.catbox.moe/c96rly.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>BNBNest - Professional Investment Platform</title>
     <style>
         :root {
-            --primary-blue: rgba(56, 189, 248, 0.12);
-            --secondary-blue: rgba(30, 58, 138, 0.22);
-            --gradient-start: rgba(56, 189, 248, 0.10);
-            --gradient-mid: rgba(30, 58, 138, 0.22);
-            --gradient-end: rgb(2, 6, 23);
+            --primary: #2c5aa0;
+            --secondary: #1e3a8a;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: rgb(2, 6, 23);
-            color: rgb(241, 245, 249);
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            overflow-x: hidden;
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
         }
         
-        .glass {
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.125);
-            border-radius: 16px;
-            transition: all 0.3s ease;
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
-        .glass:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
-        .soft-glow {
-            box-shadow: 0 0 60px rgba(56, 189, 248, 0.12), 0 0 120px rgba(30, 58, 138, 0.08);
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
         }
         
-        .nav-blur {
-            backdrop-filter: blur(12px) saturate(180%);
-            -webkit-backdrop-filter: blur(12px) saturate(180%);
-            background: rgba(15, 23, 42, 0.8);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .wallet-connect {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .wallet-connect:hover {
+            background-color: var(--secondary);
+        }
+        
+        .wallet-connected {
+            background-color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
         
         .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: white;
-            background: linear-gradient(45deg, rgb(37, 99, 235), rgb(59, 130, 246));
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.25);
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid white;
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+            background-color: transparent;
+            color: white;
         }
         
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        /* Features Section */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        /* Dashboard Section */
+        .dashboard {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-action {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
             font-weight: 500;
-            color: rgb(241, 245, 249);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            transition: background-color 0.3s;
         }
         
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+        .btn-action:hover {
+            background-color: var(--secondary);
         }
         
-        .icon-left {
-            display: inline-flex;
+        .btn-success {
+            background-color: var(--success);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+        }
+        
+        /* Investment Section */
+        .investment-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-        }
-        
-        .faq-number, .guide-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, rgba(56, 189, 248, 0.15), rgba(56, 189, 248, 0.25));
-            color: rgb(241, 245, 249);
-            font-size: 0.875rem;
             font-weight: 600;
-            margin-right: 12px;
-            flex-shrink: 0;
         }
         
-        .accordion-content {
+        .faq-answer {
+            padding: 0 20px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: max-height 0.3s, padding 0.3s;
         }
         
-        .accordion-open {
-            max-height: 1000px;
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
         }
         
-        .drawer {
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
         }
         
-        .drawer-open {
-            transform: translateX(0);
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
         }
         
-        .drawer-overlay {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--light);
         }
         
-        .drawer-overlay-open {
-            opacity: 1;
-            pointer-events: auto;
+        .footer-links {
+            list-style: none;
         }
         
-        @media (prefers-reduced-motion: reduce) {
-            .accordion-content, .drawer, .drawer-overlay {
-                transition: none;
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
             }
         }
         
-        .bg-gradient-custom {
-            background: radial-gradient(ellipse at top right, var(--gradient-start), transparent 35%), 
-                        radial-gradient(ellipse at bottom left, var(--gradient-mid), transparent 40%), 
-                        var(--gradient-end);
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
         }
         
-        .project-card {
-            transition: all 0.3s ease;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
         
-        .hero-title {
-            background: linear-gradient(to right, #e2e8f0, #94a3b8, #e2e8f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: shimmer 3s linear infinite;
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
-        @keyframes shimmer {
-            to {
-                background-position: 200% center;
-            }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
         
-        .fade-in {
-            animation: fadeIn 1s ease-in-out;
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
         }
         
-        .stagger-item {
-            opacity: 0;
-            transform: translateY(20px);
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1100;
+            display: none;
+            max-width: 350px;
         }
         
-        .gradient-border {
-            position: relative;
-            border-radius: 16px;
-            z-index: 1;
+        .notification.success {
+            background-color: var(--success);
         }
         
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            right: -1px;
-            bottom: -1px;
-            background: linear-gradient(45deg, rgba(56, 189, 248, 0.5), rgba(30, 58, 138, 0.5));
-            border-radius: 17px;
-            z-index: -1;
+        .notification.error {
+            background-color: var(--danger);
+        }
+        
+        .notification.warning {
+            background-color: var(--warning);
         }
     </style>
 </head>
-<body class="bg-gradient-custom">
+<body>
     <!-- Header -->
-    <header class="sticky top-0 z-50 nav-blur">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
-                    <img class="h-8 w-auto" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
-                    <span class="ml-2 text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">DeFi Portal</span>
-                </div>
-                
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
-                    <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
-                    <a href="#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
-                    <a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
-                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
-                </nav>
-                
-                <!-- Desktop CTA Button -->
-                <div class="hidden md:block">
-                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                        <i class="fas fa-robot icon-left"></i>
-                        Free Chat Bot
-                    </a>
-                </div>
-                
-                <!-- Mobile Hamburger -->
-                <div class="md:hidden">
-                    <button type="button" class="btn-secondary" aria-label="Open navigation" id="hamburger-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <line x1="3" y1="12" x2="21" y2="12"></line>
-                            <line x1="3" y1="18" x2="21" y2="18"></line>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">BNB<span>Nest</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#invest">Invest</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#referral">Referral</a></li>
+                    <li><a href="#salary">Salary</a></li>
+                    <li><a href="#how-to-join">How to Join</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#security">Security</a></li>
+                </ul>
+                <button class="wallet-connect" id="connectWallet">Connect Wallet</button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 fade-in">
-            <div class="text-center">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 hero-title">Find Curated DeFi Opportunities — Safely and Transparently</h1>
-                <p class="text-xl sm:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">We research, score, and showcase decentralized finance projects with a clear methodology, so you can explore with confidence.</p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#projects" class="btn-primary">
-                        <i class="fas fa-rocket icon-left"></i>
-                        Explore Projects
-                    </a>
-                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-                        <i class="fas fa-robot icon-left"></i>
-                        Free Chat Bot
-                    </a>
-                </div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Smart Investment with BNB Nest</h1>
+            <p>Maximize your returns with our secure and transparent investment platform. Earn daily ROI, referral commissions, and monthly salaries.</p>
+            <div class="hero-buttons">
+                <a href="#invest" class="btn btn-primary">Start Investing</a>
+                <a href="#how-to-join" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
 
-                <div class="mt-12 flex justify-center">
-                    <div class="glass soft-glow p-1 rounded-2xl w-full max-w-2xl">
-                        <iframe class="rounded-xl w-full aspect-video"
-                                src="https://www.youtube.com/embed/vuHUjIBBbyQ"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen>
-                        </iframe>
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose BNBNest?</h2>
+                <p>Our platform offers multiple ways to grow your investment with security and transparency.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Daily ROI</h3>
+                    <p>Earn between 0.5% to 2.5% daily return on your investment based on TVL growth.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Referral Program</h3>
+                    <p>17-level referral system with commissions from 2% to 20% on your downline's earnings.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Monthly Salary</h5>
+                    <p>Qualify for monthly salary tiers based on your deposit and referral network.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Transparent</h3>
+                    <p>Verified smart contract with locked capital period and transparent fee structure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="section" id="dashboard">
+        <div class="container">
+            <div class="section-title">
+                <h2>Your Dashboard</h2>
+                <p>Monitor your investments, earnings, and referral network in real-time.</p>
+            </div>
+            <div class="dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="userDeposit">0 USDT</div>
+                        <div class="stat-label">Your Deposit</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="pendingROI">0 USDT</div>
+                        <div class="stat-label">Pending ROI</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="claimedROI">0 USDT</div>
+                        <div class="stat-label">Claimed ROI</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="referralRewards">0 USDT</div>
+                        <div class="stat-label">Referral Rewards</div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-action" id="claimROI">Claim ROI</button>
+                    <button class="btn-action btn-success" id="claimReferral">Claim Referral Rewards</button>
+                    <button class="btn-action btn-warning" id="withdrawCapital">Withdraw Capital</button>
+                    <button class="btn-action" id="claimSalary">Claim Monthly Salary</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Section -->
+    <section class="section" id="invest">
+        <div class="container">
+            <div class="section-title">
+                <h2>Start Investing</h2>
+                <p>Deposit USDT and start earning daily returns with our secure investment platform.</p>
+            </div>
+            <div class="investment-form">
+                <div class="form-group">
+                    <label for="depositAmount">Deposit Amount (Minimum: 10 USDT)</label>
+                    <input type="number" id="depositAmount" class="form-control" placeholder="Enter amount in USDT" min="10">
+                </div>
+                <div class="form-group">
+                    <label for="referrerAddress">Referrer Address (Optional)</label>
+                    <input type="text" id="referrerAddress" class="form-control" placeholder="Enter referrer's wallet address">
+                </div>
+                <button class="btn-action" id="depositBtn">Deposit USDT</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Referral Section -->
+    <section class="section" id="referral">
+        <div class="container">
+            <div class="section-title">
+                <h2>Referral Program</h2>
+                <p>Earn commissions from 17 levels of your referral network with our tier-based system.</p>
+            </div>
+            <div class="dashboard">
+                <h3>Your Referral Link</h3>
+                <div class="form-group">
+                    <input type="text" id="referralLink" class="form-control" readonly>
+                    <button class="btn-action" id="copyReferral">Copy Link</button>
+                </div>
+                <h3>Referral Tiers</h3>
+                <div id="referralTiersList">
+                    <!-- Referral tiers will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Salary Section -->
+    <section class="section" id="salary">
+        <div class="container">
+            <div class="section-title">
+                <h2>Monthly Salary</h2>
+                <p>Qualify for monthly salary tiers based on your deposit and referral network requirements.</p>
+            </div>
+            <div class="dashboard">
+                <h3>Your Current Tier: <span id="currentTier">None</span></h3>
+                <p id="tierRequirements">Connect your wallet to see tier requirements.</p>
+                <div id="salaryTiersList">
+                    <!-- Salary tiers will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Join Section -->
+    <section class="section" id="how-to-join">
+        <div class="container">
+            <div class="section-title">
+                <h2>How to Join</h2>
+                <p>Follow these simple steps to start earning with BNBNest.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">1</div>
+                    <h3>Connect Wallet</h3>
+                    <p>Connect your BSC-compatible wallet like MetaMask or Trust Wallet.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">2</div>
+                    <h3>Deposit USDT</h3>
+                    <p>Deposit a minimum of 10 USDT to activate your investment account.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">3</div>
+                    <h3>Start Earning</h3>
+                    <p>Begin earning daily ROI, build your referral network, and qualify for monthly salaries.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">4</div>
+                    <h3>Claim Rewards</h3>
+                    <p>Regularly claim your ROI, referral commissions, and monthly salary.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our investment platform.</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is the minimum deposit?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        The minimum deposit is 10 USDT to start earning with BNBNest.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How does the ROI system work?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        ROI ranges from 0.5% to 2.5% daily based on the total TVL. The more TVL grows, the higher the ROI percentage.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is the lock period for capital?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Your capital is locked for 28 days. After this period, you can withdraw your capital with a 10% fee.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do referral commissions work?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        You earn commissions from 17 levels of your referral network, with percentages ranging from 2% to 20% based on your deposit tier.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How can I qualify for monthly salary?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Monthly salary tiers require specific deposit amounts and referral counts at different levels. Check the Salary section for details.
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <h2 class="text-3xl font-bold text-center mb-4">About DeFi Portal</h2>
-            <p class="text-slate-400 text-center max-w-3xl mx-auto mb-12">Discover how we're transforming DeFi discovery with transparent scoring and community-driven insights</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-question-circle"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">What is DeFi Portal?</h3>
-                    </div>
-                    <p class="text-slate-300">DeFi Portal is a curated portal that highlights decentralized finance projects after a structured review, helping users discover opportunities aligned with their risk tolerance.</p>
+    <!-- Security Section -->
+    <section class="section" id="security">
+        <div class="container">
+            <div class="section-title">
+                <h2>Security & Transparency</h2>
+                <p>Your investments are secured by verified smart contracts on the Binance Smart Chain.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Verified Contract</h3>
+                    <p>Our smart contract is verified on BscScan, ensuring transparency and security.</p>
                 </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-bullseye"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">Mission</h3>
-                    </div>
-                    <p class="text-slate-300">To raise the standard of due diligence in DeFi by publishing transparent criteria, consistent scoring, and concise summaries anyone can understand.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>No Admin Withdrawals</h3>
+                    <p>Funds are secured in the contract with no ability for admin to withdraw user deposits.</p>
                 </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-cube"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">Why We Exist</h3>
-                    </div>
-                    <p class="text-slate-300">DeFi moves fast and information is fragmented. We centralize key signals—security, liquidity, team, and tokenomics—into a digestible format.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Transparent Fees</h3>
+                    <p>Clear fee structure: 15% deposit fee, 10% capital withdrawal fee after lock period.</p>
                 </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-filter"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">How We Curate</h3>
-                    </div>
-                    <p class="text-slate-300">Projects are shortlisted through open-source intelligence, on-chain data, and third-party audit references before being added to our watchlist.</p>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">Transparent Scoring</h3>
-                    </div>
-                    <p class="text-slate-300">Each listing displays a risk tier and context notes. Our scoring rubric is public and continuously refined with community feedback.</p>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">Independent & Educational</h3>
-                    </div>
-                    <p class="text-slate-300">We do not offer financial advice or paid promotion. Our content is educational and designed to support individual decision-making.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Lock Period</h3>
+                    <p>28-day lock period ensures stability and prevents premature withdrawals.</p>
                 </div>
             </div>
-        </section>
-
-        <!-- Methodology Section -->
-        <section id="methodology" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Our Methodology</h2>
-            <p class="text-slate-400 text-center max-w-3xl mx-auto mb-12">Our rigorous evaluation process ensures every project meets high standards before being featured</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">Security & Audits</h3>
-                    </div>
-                    <p class="text-slate-300">We check for formal audits, open-source contracts, time-locks, and multi-sig controls, and we review known vulnerabilities for the protocol class.</p>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">Team & Governance</h3>
-                    </div>
-                    <p class="text-slate-300">We assess team transparency, track record, governance mechanisms, and response quality to disclosures or incidents.</p>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">Tokenomics & Incentives</h3>
-                    </div>
-                    <p class="text-slate-300">We analyze emissions, utility, vesting schedules, treasury design, and sustainability of incentives over time.</p>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-water"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">Liquidity & Integrations</h3>
-                    </div>
-                    <p class="text-slate-300">We review liquidity depth, chain support, oracle design, key integrations, and composability risks.</p>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-link"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">On-Chain Health</h3>
-                    </div>
-                    <p class="text-slate-300">We monitor TVL trends, user activity, address distribution, and anomalous patterns using on-chain analytics.</p>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left text-blue-400">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold">Community Trust</h3>
-                    </div>
-                    <p class="text-slate-300">We evaluate community engagement, social sentiment, and responsiveness to user concerns and feedback.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Curated Projects</h2>
-            <p class="text-slate-400 text-center max-w-3xl mx-auto mb-12">Explore our handpicked selection of DeFi projects with transparent risk assessments</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-center mb-4">
-                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/loqztx.png" alt="BNBNest logo">
-                        <div class="ml-4">
-                            <h3 class="text-xl font-semibold">BNBNest</h3>
-                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <p class="text-sm text-slate-400">Risk</p>
-                            <p class="font-medium text-yellow-400">Medium</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-slate-400">TVL</p>
-                            <p class="font-medium">$0.00</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-400/10 text-yellow-400">
-                            <i class="fas fa-clock mr-1"></i> Coming Soon
-                        </span>
-                    </div>
-                    
-                    <a href="https://chat.whatsapp.com/IhxkdY3ZfnsDXz5DeVU2js" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full justify-center">
-                        <i class="fas fa-external-link-alt icon-left"></i>
-                        Details
-                    </a>
-                </div>
-
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-center mb-4">
-                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/3g1eaq.png" alt="BNBNexa logo">
-                        <div class="ml-4">
-                            <h3 class="text-xl font-semibold">BNBNexa</h3>
-                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <p class="text-sm text-slate-400">Risk</p>
-                            <p class="font-medium text-yellow-400">Medium</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-slate-400">TVL</p>
-                            <p class="font-medium">$0.00</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-400/10 text-yellow-400">
-                            <i class="fas fa-clock mr-1"></i> Coming Soon
-                        </span>
-                    </div>
-                    
-                    <a href="https://chat.whatsapp.com/HrQT2bWDU79AWkX0xjMbKl" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full justify-center">
-                        <i class="fas fa-external-link-alt icon-left"></i>
-                        Details
-                    </a>
-                </div>
-
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-center mb-4">
-                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/ej7abf.png" alt="BNB Capital logo">
-                        <div class="ml-4">
-                            <h3 class="text-xl font-semibold">BNB Capital</h3>
-                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <p class="text-sm text-slate-400">Risk</p>
-                            <p class="font-medium text-yellow-400">Medium</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-slate-400">TVL</p>
-                            <p class="font-medium">506.02 BNB</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-400/10 text-green-400">
-                            <i class="fas fa-check-circle mr-1"></i> Live Now
-                        </span>
-                    </div>
-                    
-                    <a href="https://chat.whatsapp.com/JxH5ArRFa8Y9dLa1TqR291" class="btn-secondary w-full justify-center">
-                        <i class="fas fa-external-link-alt icon-left"></i>
-                        Details
-                    </a>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                    <i class="fas fa-plus icon-left"></i>
-                    Load More Projects
-                </a>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Frequently Asked Questions</h2>
-            <p class="text-slate-400 text-center max-w-3xl mx-auto mb-12">Find answers to common questions about our platform and methodology</p>
-            
-            <div class="space-y-4">
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">1</span>
-                            <span class="font-semibold">Is DeFi Portal financial advice?</span>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">No. DeFi Portal is an educational resource. Always conduct your own research and consider your risk tolerance.</p>
-                    </div>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">2</span>
-                            <span class="font-semibold">How are projects selected?</span>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">Projects are shortlisted via research and must pass baseline checks on security, governance, tokenomics, liquidity, and on-chain health.</p>
-                    </div>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">3</span>
-                            <span class="font-semibold">Do you accept listings or promotions?</span>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">We may review community suggestions but we do not sell listings. Reviews remain independent and criteria-based.</p>
-                    </div>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">4</span>
-                            <span class="font-semibold">What do risk tiers mean?</span>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">Risk tiers summarize relative risk given available data. They do not predict future performance or guarantee safety.</p>
-                    </div>
-                </div>
-                
-                <div class="glass p-6 rounded-2xl gradient-border">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">5</span>
-                            <span class="font-semibold">How often are pages updated?</span>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">We review listings periodically and when material events occur (audits, upgrades, incidents).</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-            <div class="glass p-12 rounded-2xl gradient-border">
-                <h2 class="text-3xl font-bold mb-6">Ready to Explore DeFi Safely?</h2>
-                <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">Join our community of informed investors and discover vetted DeFi opportunities with transparent risk scoring.</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#projects" class="btn-primary">
-                        <i class="fas fa-rocket icon-left"></i>
-                        Explore Projects
-                    </a>
-                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-                        <i class="fas fa-robot icon-left"></i>
-                        Free Chat Bot
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="flex flex-col items-center">
-                <img class="h-10 w-auto mb-6" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
-                
-                <p class="text-slate-400 text-center max-w-2xl mb-8">
-                    DeFi Portal is an educational portal. None of the information provided constitutes financial, investment, or legal advice. Always do your own research (DYOR).
-                </p>
-                
-                <div class="flex flex-wrap justify-center gap-6 mb-8">
-                    <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
-                    <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
-                    <a href="#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
-                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
-                    <a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
-                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white transition-colors">Free Chat Bot</a>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BNBNest</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#invest">Invest</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                        <li><a href="#referral">Referral</a></li>
+                    </ul>
                 </div>
-                
-                <div class="flex gap-4 mb-8">
-                    <!-- Telegram -->
-                    <a href="https://t.me/DeFiPortalChannel" target="_blank" rel="noopener noreferrer" 
-                       class="text-slate-400 hover:text-blue-400 transition-colors text-xl" aria-label="Telegram">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-
-                    <!-- YouTube -->
-                    <a href="https://www.youtube.com/@DeFiPortal" target="_blank" rel="noopener noreferrer" 
-                       class="text-slate-400 hover:text-red-500 transition-colors text-xl" aria-label="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-
-                    <!-- Twitter -->
-                    <a href="#" target="_blank" rel="noopener noreferrer" 
-                       class="text-slate-400 hover:text-sky-400 transition-colors text-xl" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#how-to-join">How to Join</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#security">Security</a></li>
+                    </ul>
                 </div>
-                
-                <p class="text-slate-500 text-sm">© 2025 DeFi Portal</p>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Risk Disclosure</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Medium</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 BNBNest. All rights reserved.
             </div>
         </div>
     </footer>
 
-    <!-- Drawer Navigation -->
-    <div class="drawer-overlay fixed inset-0 bg-black/70 z-50" id="drawer-overlay"></div>
-    
-    <div class="drawer fixed top-0 right-0 h-full w-80 bg-slate-900 z-50 p-6" id="drawer">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-xl font-semibold">Navigation</h2>
-            <button type="button" id="close-drawer" aria-label="Close navigation" class="text-slate-400 hover:text-white">
-                <i class="fas fa-times text-xl"></i>
-            </button>
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Loading Modal -->
+    <div class="modal" id="loadingModal">
+        <div class="modal-content">
+            <div class="spinner"></div>
+            <p style="text-align: center; margin-top: 20px;" id="loadingText">Processing transaction...</p>
         </div>
-        
-        <nav class="space-y-4">
-            <a href="#home" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
-                <i class="fas fa-home icon-left"></i>
-                Home
-            </a>
-            
-            <a href="#about" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
-                <i class="fas fa-info-circle icon-left"></i>
-                About
-            </a>
-            
-            <a href="#methodology" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
-                <i class="fas fa-chart-line icon-left"></i>
-                Methodology
-            </a>
-            
-            <a href="#faq" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
-                <i class="fas fa-question-circle icon-left"></i>
-                FAQ
-            </a>
-            
-            <a href="#projects" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
-                <i class="fas fa-project-diagram icon-left"></i>
-                Projects
-            </a>
-            
-            <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary w-full justify-center mt-6">
-                <i class="fas fa-robot icon-left"></i>
-                Free Chat Bot
-            </a>
-        </nav>
     </div>
 
+    <!-- Scripts -->
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Close mobile drawer if open
-                    if (document.getElementById('drawer').classList.contains('drawer-open')) {
-                        closeDrawer();
-                    }
-                    
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // Update URL without page reload
-                    history.pushState(null, null, targetId);
-                }
+        // Contract ABI - Simplified version for the example
+        const contractABI = [
+            {
+                "inputs": [{"internalType": "address", "name": "_usdtAddress", "type": "address"}],
+                "stateMutability": "nonpayable",
+                "type": "constructor"
+            },
+            {
+                "anonymous": false,
+                "inputs": [{"indexed": true, "internalType": "address", "name": "user", "type": "address"}, {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}, {"indexed": false, "internalType": "address", "name": "referrer", "type": "address"}],
+                "name": "Deposited",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [{"indexed": true, "internalType": "address", "name": "user", "type": "address"}, {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}],
+                "name": "ROIClaimed",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [{"indexed": true, "internalType": "address", "name": "user", "type": "address"}, {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}, {"indexed": false, "internalType": "uint256", "name": "fee", "type": "uint256"}],
+                "name": "CapitalWithdrawn",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [{"indexed": true, "internalType": "address", "name": "user", "type": "address"}, {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}],
+                "name": "ReferralRewardClaimed",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [{"indexed": true, "internalType": "address", "name": "user", "type": "address"}, {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}, {"indexed": false, "internalType": "enum BNBNest.SalaryTier", "name": "tier", "type": "uint8"}],
+                "name": "SalaryClaimed",
+                "type": "event"
+            },
+            {
+                "inputs": [{"internalType": "uint256", "name": "amount", "type": "uint256"}, {"internalType": "address", "name": "referrer", "type": "address"}],
+                "name": "deposit",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "claimROI",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "withdrawCapital",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "claimReferralRewards",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "claimMonthlySalary",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "address", "name": "userAddress", "type": "address"}],
+                "name": "getUserInfo",
+                "outputs": [
+                    {"internalType": "uint256", "name": "userDeposit", "type": "uint256"},
+                    {"internalType": "uint256", "name": "userDepositTime", "type": "uint256"},
+                    {"internalType": "uint256", "name": "userLastROIClaim", "type": "uint256"},
+                    {"internalType": "uint256", "name": "userClaimedROI", "type": "uint256"},
+                    {"internalType": "uint256", "name": "userReferralRewards", "type": "uint256"},
+                    {"internalType": "uint256", "name": "userLastSalaryClaim", "type": "uint256"},
+                    {"internalType": "address", "name": "userReferrer", "type": "address"},
+                    {"internalType": "enum BNBNest.SalaryTier", "name": "userSalaryTier", "type": "uint8"},
+                    {"internalType": "uint256", "name": "userPendingROI", "type": "uint256"}
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "getCurrentROI",
+                "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "address", "name": "userAddress", "type": "address"}],
+                "name": "calculatePendingROI",
+                "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "address", "name": "userAddress", "type": "address"}],
+                "name": "canClaimSalary",
+                "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "address", "name": "userAddress", "type": "address"}],
+                "name": "canWithdrawCapital",
+                "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "totalTVL",
+                "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "totalUsers",
+                "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+                "stateMutability": "view",
+                "type": "function"
+            }
+        ];
+
+        // Contract address (replace with actual deployed contract address)
+        const contractAddress = "0x36622C46Ba53BBfaeBa618ED035BBB6CD67017B0"; // Replace with actual contract address
+        
+        // Global variables
+        let web3;
+        let contract;
+        let userAccount;
+        let isConnected = false;
+
+        // DOM Elements
+        const connectWalletBtn = document.getElementById('connectWallet');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        const faqItems = document.querySelectorAll('.faq-item');
+        const notification = document.getElementById('notification');
+        const loadingModal = document.getElementById('loadingModal');
+        const loadingText = document.getElementById('loadingText');
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize mobile menu
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
             });
+
+            // Initialize FAQ accordion
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Initialize Web3
+            initWeb3();
+            
+            // Initialize contract interaction buttons
+            initContractInteractions();
         });
 
-        // Drawer functionality
-        const drawer = document.getElementById('drawer');
-        const drawerOverlay = document.getElementById('drawer-overlay');
-        const hamburgerBtn = document.getElementById('hamburger-btn');
-        const closeDrawerBtn = document.getElementById('close-drawer');
-        
-        function openDrawer() {
-            drawer.classList.add('drawer-open');
-            drawerOverlay.classList.add('drawer-overlay-open');
-            document.body.style.overflow = 'hidden';
-            
-            // Set focus to first element in drawer
-            const firstFocusable = drawer.querySelector('a, button');
-            if (firstFocusable) firstFocusable.focus();
-        }
-        
-        function closeDrawer() {
-            drawer.classList.remove('drawer-open');
-            drawerOverlay.classList.remove('drawer-overlay-open');
-            document.body.style.overflow = 'auto';
-            
-            // Return focus to hamburger button
-            hamburgerBtn.focus();
-        }
-        
-        hamburgerBtn.addEventListener('click', openDrawer);
-        closeDrawerBtn.addEventListener('click', closeDrawer);
-        drawerOverlay.addEventListener('click', closeDrawer);
-        
-        // Close drawer with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && drawer.classList.contains('drawer-open')) {
-                closeDrawer();
-            }
-        });
-        
-        // Trap focus inside drawer when open
-        drawer.addEventListener('keydown', (e) => {
-            if (e.key !== 'Tab' || !drawer.classList.contains('drawer-open')) return;
-            
-            const focusableElements = drawer.querySelectorAll('a[href], button, textarea, input, select');
-            const firstElement = focusableElements[0];
-            const lastElement = focusableElements[focusableElements.length - 1];
-            
-            if (e.shiftKey) {
-                if (document.activeElement === firstElement) {
-                    lastElement.focus();
-                    e.preventDefault();
+        // Initialize Web3
+        async function initWeb3() {
+            // Check if Web3 is injected by MetaMask
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                
+                // Initialize contract
+                contract = new web3.eth.Contract(contractABI, contractAddress);
+                
+                // Check if user is already connected
+                const accounts = await web3.eth.getAccounts();
+                if (accounts.length > 0) {
+                    userAccount = accounts[0];
+                    isConnected = true;
+                    updateUI();
                 }
             } else {
-                if (document.activeElement === lastElement) {
-                    firstElement.focus();
-                    e.preventDefault();
-                }
+                showNotification('Please install MetaMask to use this dApp!', 'error');
             }
-        });
+            
+            // Connect wallet button
+            connectWalletBtn.addEventListener('click', connectWallet);
+        }
 
-        // Accordion functionality
-        document.querySelectorAll('.accordion-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                const isOpen = button.getAttribute('aria-expanded') === 'true';
+        // Connect wallet function
+        async function connectWallet() {
+            if (!window.ethereum) {
+                showNotification('Please install MetaMask!', 'error');
+                return;
+            }
+
+            try {
+                // Request account access
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                userAccount = accounts[0];
+                isConnected = true;
                 
-                // Toggle accordion
-                button.setAttribute('aria-expanded', !isOpen);
-                content.classList.toggle('accordion-open');
+                // Update UI
+                updateUI();
                 
-                // Rotate arrow icon
-                const icon = button.querySelector('svg');
-                if (icon) {
-                    icon.classList.toggle('rotate-180');
-                }
-            });
-        });
+                showNotification('Wallet connected successfully!', 'success');
+            } catch (error) {
+                console.error('User denied account access');
+                showNotification('Wallet connection failed!', 'error');
+            }
+        }
 
-        // Add fade-in animation to sections on scroll
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        // Update UI based on connection status
+        function updateUI() {
+            if (isConnected) {
+                connectWalletBtn.textContent = `${userAccount.substring(0, 6)}...${userAccount.substring(38)}`;
+                connectWalletBtn.classList.add('wallet-connected');
+                
+                // Load user data
+                loadUserData();
+                
+                // Update referral link
+                document.getElementById('referralLink').value = `${window.location.origin}?ref=${userAccount}`;
+            } else {
+                connectWalletBtn.textContent = 'Connect Wallet';
+                connectWalletBtn.classList.remove('wallet-connected');
+            }
+        }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
+        // Load user data from contract
+        async function loadUserData() {
+            if (!isConnected) return;
+            
+            try {
+                // Get user info
+                const userInfo = await contract.methods.getUserInfo(userAccount).call();
+                
+                // Update dashboard
+                document.getElementById('userDeposit').textContent = `${(userInfo.userDeposit / 1e6).toFixed(2)} USDT`;
+                document.getElementById('pendingROI').textContent = `${(userInfo.userPendingROI / 1e6).toFixed(2)} USDT`;
+                document.getElementById('claimedROI').textContent = `${(userInfo.userClaimedROI / 1e6).toFixed(2)} USDT`;
+                document.getElementById('referralRewards').textContent = `${(userInfo.userReferralRewards / 1e6).toFixed(2)} USDT`;
+                
+                // Update salary tier
+                const tierNames = ['None', 'Pioneer', 'Visionary', 'Architect', 'Maverick', 'Legendary'];
+                document.getElementById('currentTier').textContent = tierNames[userInfo.userSalaryTier];
+                
+                // Load referral tiers
+                loadReferralTiers();
+                
+                // Load salary tiers
+                loadSalaryTiers();
+                
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
 
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+        // Load referral tiers
+        function loadReferralTiers() {
+            // This would be populated from contract data in a real implementation
+            const referralTiersContainer = document.getElementById('referralTiersList');
+            referralTiersContainer.innerHTML = `
+                <p>Level 1: 20% commission (Min deposit: 50 USDT)</p>
+                <p>Level 2: 10% commission (Min deposit: 100 USDT)</p>
+                <p>Level 3-6: 5% commission (Min deposit: 130-470 USDT)</p>
+                <p>Level 7-10: 3% commission (Min deposit: 520-730 USDT)</p>
+                <p>Level 11-14: 2% commission (Min deposit: 980-1500 USDT)</p>
+                <p>Level 15-16: 5% commission (Min deposit: 2000-2300 USDT)</p>
+                <p>Level 17: 10% commission (Min deposit: 2500 USDT)</p>
+            `;
+        }
+
+        // Load salary tiers
+        function loadSalaryTiers() {
+            // This would be populated from contract data in a real implementation
+            const salaryTiersContainer = document.getElementById('salaryTiersList');
+            salaryTiersContainer.innerHTML = `
+                <div class="feature-card">
+                    <h3>Pioneer</h3>
+                    <p>Salary: 5 USDT/month</p>
+                    <p>Requirements: 50 USDT deposit, 10 direct referrals</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Visionary</h3>
+                    <p>Salary: 10 USDT/month</p>
+                    <p>Requirements: 100 USDT deposit, 15 direct + 15 level 2 referrals</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Architect</h3>
+                    <p>Salary: 20 USDT/month</p>
+                    <p>Requirements: 130 USDT deposit, 20 referrals at levels 1-3</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Maverick</h3>
+                    <p>Salary: 30 USDT/month</p>
+                    <p>Requirements: 150 USDT deposit, 30 referrals at levels 1-4</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Legendary</h3>
+                    <p>Salary: 50 USDT/month</p>
+                    <p>Requirements: 230 USDT deposit, 40 referrals at levels 1-5</p>
+                </div>
+            `;
+        }
+
+        // Initialize contract interaction buttons
+        function initContractInteractions() {
+            // Deposit button
+            document.getElementById('depositBtn').addEventListener('click', deposit);
+            
+            // Claim ROI button
+            document.getElementById('claimROI').addEventListener('click', claimROI);
+            
+            // Claim referral rewards button
+            document.getElementById('claimReferral').addEventListener('click', claimReferralRewards);
+            
+            // Withdraw capital button
+            document.getElementById('withdrawCapital').addEventListener('click', withdrawCapital);
+            
+            // Claim salary button
+            document.getElementById('claimSalary').addEventListener('click', claimMonthlySalary);
+            
+            // Copy referral link button
+            document.getElementById('copyReferral').addEventListener('click', copyReferralLink);
+        }
+
+        // Deposit function
+        async function deposit() {
+            if (!isConnected) {
+                showNotification('Please connect your wallet first!', 'error');
+                return;
+            }
+            
+            const amount = document.getElementById('depositAmount').value;
+            const referrer = document.getElementById('referrerAddress').value;
+            
+            if (!amount || amount < 10) {
+                showNotification('Please enter a valid amount (minimum 10 USDT)!', 'error');
+                return;
+            }
+            
+            try {
+                showLoading('Processing deposit...');
+                
+                // Convert amount to wei (USDT has 6 decimals)
+                const amountInWei = web3.utils.toWei(amount, 'mwei');
+                
+                // Execute deposit
+                await contract.methods.deposit(amountInWei, referrer || '0x0000000000000000000000000000000000000000').send({
+                    from: userAccount
+                });
+                
+                hideLoading();
+                showNotification('Deposit successful!', 'success');
+                
+                // Reload user data
+                loadUserData();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Deposit error:', error);
+                showNotification('Deposit failed!', 'error');
+            }
+        }
+
+        // Claim ROI function
+        async function claimROI() {
+            if (!isConnected) {
+                showNotification('Please connect your wallet first!', 'error');
+                return;
+            }
+            
+            try {
+                showLoading('Claiming ROI...');
+                
+                await contract.methods.claimROI().send({
+                    from: userAccount
+                });
+                
+                hideLoading();
+                showNotification('ROI claimed successfully!', 'success');
+                
+                // Reload user data
+                loadUserData();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Claim ROI error:', error);
+                showNotification('ROI claim failed!', 'error');
+            }
+        }
+
+        // Claim referral rewards function
+        async function claimReferralRewards() {
+            if (!isConnected) {
+                showNotification('Please connect your wallet first!', 'error');
+                return;
+            }
+            
+            try {
+                showLoading('Claiming referral rewards...');
+                
+                await contract.methods.claimReferralRewards().send({
+                    from: userAccount
+                });
+                
+                hideLoading();
+                showNotification('Referral rewards claimed successfully!', 'success');
+                
+                // Reload user data
+                loadUserData();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Claim referral rewards error:', error);
+                showNotification('Referral rewards claim failed!', 'error');
+            }
+        }
+
+        // Withdraw capital function
+        async function withdrawCapital() {
+            if (!isConnected) {
+                showNotification('Please connect your wallet first!', 'error');
+                return;
+            }
+            
+            try {
+                showLoading('Withdrawing capital...');
+                
+                await contract.methods.withdrawCapital().send({
+                    from: userAccount
+                });
+                
+                hideLoading();
+                showNotification('Capital withdrawn successfully!', 'success');
+                
+                // Reload user data
+                loadUserData();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Withdraw capital error:', error);
+                showNotification('Capital withdrawal failed!', 'error');
+            }
+        }
+
+        // Claim monthly salary function
+        async function claimMonthlySalary() {
+            if (!isConnected) {
+                showNotification('Please connect your wallet first!', 'error');
+                return;
+            }
+            
+            try {
+                showLoading('Claiming monthly salary...');
+                
+                await contract.methods.claimMonthlySalary().send({
+                    from: userAccount
+                });
+                
+                hideLoading();
+                showNotification('Monthly salary claimed successfully!', 'success');
+                
+                // Reload user data
+                loadUserData();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Claim salary error:', error);
+                showNotification('Salary claim failed!', 'error');
+            }
+        }
+
+        // Copy referral link function
+        function copyReferralLink() {
+            const referralLink = document.getElementById('referralLink');
+            referralLink.select();
+            document.execCommand('copy');
+            showNotification('Referral link copied to clipboard!', 'success');
+        }
+
+        // Show loading modal
+        function showLoading(text) {
+            loadingText.textContent = text;
+            loadingModal.style.display = 'flex';
+        }
+
+        // Hide loading modal
+        function hideLoading() {
+            loadingModal.style.display = 'none';
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
     </script>
 </body>
 </html>
