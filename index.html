@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DeFi Portal - Curated DeFi opportunities with transparent methodology and risk assessment">
+    <title>DeFi Portal - Curated DeFi Opportunities</title>
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/c96rly.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: rgba(56, 189, 248, 0.12);
+            --secondary-blue: rgba(30, 58, 138, 0.22);
+        }
+        
+        body {
+            background-color: rgb(2, 6, 23);
+            color: rgb(241, 245, 249);
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .glass {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+        }
+        
+        .soft-glow {
+            box-shadow: 0 0 60px rgba(56, 189, 248, 0.12), 0 0 120px rgba(30, 58, 138, 0.08);
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.7);
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+            background-color: rgb(37, 99, 235);
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background-color: rgb(59, 130, 246);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:focus {
+            outline: none;
+            ring: 2px;
+            ring-color: rgba(96, 165, 250, 0.6);
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgb(241, 245, 249);
+            ring: 1px;
+            ring-color: rgba(255, 255, 255, 0.1);
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            ring-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .icon-left {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+        
+        .faq-number, .guide-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: rgba(56, 189, 248, 0.12);
+            color: rgb(241, 245, 249);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 320ms ease;
+        }
+        
+        .accordion-open {
+            max-height: 1000px;
+        }
+        
+        .drawer {
+            transform: translateX(100%);
+            transition: transform 300ms ease;
+        }
+        
+        .drawer-open {
+            transform: translateX(0);
+        }
+        
+        .drawer-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 300ms ease;
+        }
+        
+        .drawer-overlay-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .accordion-content, .drawer, .drawer-overlay {
+                transition: none;
+            }
+        }
+        
+        .bg-gradient-custom {
+            background: radial-gradient(ellipse at top right, rgba(56, 189, 248, 0.10), transparent 35%), 
+                        radial-gradient(ellipse at bottom left, rgba(30, 58, 138, 0.22), transparent 40%), 
+                        rgb(2, 6, 23);
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+        }
+        
+        .active-nav {
+            color: rgb(96, 165, 250);
+            position: relative;
+        }
+        
+        .active-nav::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: rgb(96, 165, 250);
+        }
+        
+        /* New styles for improved professionalism */
+        .section-header {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.8), rgba(30, 58, 138, 0.8));
+            border-radius: 2px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .feature-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(56, 189, 248, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(56, 189, 248);
+        }
+        
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .risk-low {
+            background-color: rgba(34, 197, 94, 0.1);
+            color: rgb(34, 197, 94);
+        }
+        
+        .risk-medium {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: rgb(245, 158, 11);
+        }
+        
+        .risk-high {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: rgb(239, 68, 68);
+        }
+        
+        .testimonial-card {
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 0.5rem;
+            left: 1rem;
+            font-size: 4rem;
+            color: rgba(56, 189, 248, 0.2);
+            line-height: 1;
+        }
+        
+        .hero-subtitle {
+            background: linear-gradient(90deg, rgb(56, 189, 248), rgb(96, 165, 250));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gradient-custom">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 nav-blur border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <img class="h-8 w-auto" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
+                    <span class="ml-2 text-xl font-semibold">DeFi Portal</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
+                    <a href="#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
+                    <a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
+                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
+                </nav>
+                
+                <!-- Desktop CTA Button -->
+                <div class="hidden md:block">
+                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                            <path d="M12 2a10 10 0 0 0-9.46 13.11l-1.09 4a1 1 0 0 0 1.22 1.22l4-1.09A10 10 0 1 0 12 2Z"></path>
+                            <path d="M8 13h8"></path>
+                            <path d="M10 9h4"></path>
+                            <path d="M12 17v-4"></path>
+                        </svg>
+                        Free Chat Bot
+                    </a>
+                </div>
+                
+                <!-- Mobile Hamburger -->
+                <div class="md:hidden">
+                    <button type="button" class="btn-secondary" aria-label="Open navigation" id="hamburger-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+            <div class="text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">Discover Vetted DeFi Opportunities with Confidence</h1>
+                <p class="text-xl sm:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">We provide transparent, methodology-driven research on decentralized finance projects, helping you make informed decisions.</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#projects" class="btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        Explore Projects
+                    </a>
+                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" 
+                       class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl 
+                              text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 
+                              focus:outline-none focus:ring-2 focus:ring-blue-400/60 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" 
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="4" y="8" width="16" height="10" rx="2" ry="2"></rect>
+                            <circle cx="9" cy="13" r="1.5"></circle>
+                            <circle cx="15" cy="13" r="1.5"></circle>
+                            <line x1="12" y1="8" x2="12" y2="4"></line>
+                            <circle cx="12" cy="3" r="1"></circle>
+                        </svg>
+                        Free Chat Bot
+                    </a> 
+                </div>
+
+                <div class="mt-12 flex justify-center">
+                    <iframe class="rounded-xl shadow-lg w-full max-w-2xl aspect-video"
+                            src="https://www.youtube.com/embed/vuHUjIBBbyQ"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-center">About DeFi Portal</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">What is DeFi Portal?</h3>
+                    </div>
+                    <p class="text-slate-300">A curated platform that highlights decentralized finance projects after comprehensive review, helping users discover opportunities aligned with their risk tolerance.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                        </div>
+                        <h3 class="text-xl font-semibold">Our Mission</h3>
+                    </div>
+                    <p class="text-slate-300">To elevate due diligence standards in DeFi through transparent criteria, consistent scoring, and accessible summaries for all experience levels.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 3h18v18H3z"></path>
+                                <path d="M9 9h6v6H9z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Why We Exist</h3>
+                    </div>
+                    <p class="text-slate-300">DeFi moves rapidly with fragmented information. We centralize critical signals—security, liquidity, team, and tokenomics—into digestible formats.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">How We Curate</h3>
+                    </div>
+                    <p class="text-slate-300">Projects undergo rigorous screening using open-source intelligence, on-chain analytics, and third-party audit verification before inclusion.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                                <path d="M15 10v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Transparent Scoring</h3>
+                    </div>
+                    <p class="text-slate-300">Each listing displays a risk tier with detailed context. Our public scoring framework evolves with community feedback and market developments.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Independent & Educational</h3>
+                    </div>
+                    <p class="text-slate-300">We provide educational content without financial advice or paid promotions, supporting informed individual decision-making.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology Section -->
+        <section id="methodology" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-center">Our Methodology</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Security & Audits</h3>
+                    </div>
+                    <p class="text-slate-300">We verify formal audits, open-source contracts, time-locks, multi-sig controls, and assess known vulnerabilities for each protocol category.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Team & Governance</h3>
+                    </div>
+                    <p class="text-slate-300">We evaluate team transparency, track records, governance mechanisms, and response quality to disclosures or incidents.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                                <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                                <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                                <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                                <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                                <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Tokenomics & Incentives</h3>
+                    </div>
+                    <p class="text-slate-300">We analyze emissions, utility, vesting schedules, treasury design, and long-term incentive sustainability.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Liquidity & Integrations</h3>
+                    </div>
+                    <p class="text-slate-300">We review liquidity depth, chain support, oracle design, key integrations, and composability risks.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">On-Chain Health</h3>
+                    </div>
+                    <p class="text-slate-300">We monitor TVL trends, user activity, address distribution, and anomalous patterns using advanced on-chain analytics.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl project-card">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Community Engagement</h3>
+                    </div>
+                    <p class="text-slate-300">We assess community size, engagement quality, developer activity, and responsiveness to community feedback.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-center">Curated Projects</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                
+                <div class="glass p-6 rounded-2xl ring-1 ring-white/10 project-card">
+                    <div class="flex items-center mb-4">
+                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/loqztx.png" alt="BNBNest logo">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold">BNBNest</h3>
+                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-slate-400">Risk</p>
+                            <p class="font-medium"><span class="risk-badge risk-medium">Medium</span></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">TVL</p>
+                            <p class="font-medium">$0.00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-400/10 text-yellow-400">
+                            Coming Soon
+                        </span>
+                    </div>
+                    
+                    <a href="https://chat.whatsapp.com/IhxkdY3ZfnsDXz5DeVU2js" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Details
+                    </a>
+                </div>
+
+                <div class="glass p-6 rounded-2xl ring-1 ring-white/10 project-card">
+                    <div class="flex items-center mb-4">
+                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/3g1eaq.png" alt="BNBNexa logo">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold">BNBNexa</h3>
+                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-slate-400">Risk</p>
+                            <p class="font-medium"><span class="risk-badge risk-medium">Medium</span></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">TVL</p>
+                            <p class="font-medium">$0.00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-400/10 text-yellow-400">
+                            Coming Soon
+                        </span>
+                    </div>
+                    
+                    <a href="https://chat.whatsapp.com/HrQT2bWDU79AWkX0xjMbKl" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Details
+                    </a>
+                </div>
+
+
+                <div class="glass p-6 rounded-2xl ring-1 ring-white/10 project-card">
+                    <div class="flex items-center mb-4">
+                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/ej7abf.png" alt="BNB Capital logo">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold">BNB Capital</h3>
+                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-slate-400">Risk</p>
+                            <p class="font-medium"><span class="risk-badge risk-medium">Medium</span></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">TVL</p>
+                            <p class="font-medium">450.48 BNB</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-400/10 text-green-400">
+                            Live Now
+                        </span>
+                    </div>
+                    
+                    <a href="https://chat.whatsapp.com/EMKKFfQMj4PIFMnDLNhcwy" class="btn-secondary w-full justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Details
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Load More Projects
+                </a>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-center">Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="glass p-6 rounded-2xl">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">1</span>
+                            <span class="font-semibold">Is DeFi Portal financial advice?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">No. DeFi Portal is an educational resource. Always conduct your own research and consider your risk tolerance.</p>
+                    </div>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">2</span>
+                            <span class="font-semibold">How are projects selected?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">Projects are shortlisted via research and must pass baseline checks on security, governance, tokenomics, liquidity, and on-chain health.</p>
+                    </div>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">3</span>
+                            <span class="font-semibold">Do you accept listings or promotions?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">We may review community suggestions but we do not sell listings. Reviews remain independent and criteria-based.</p>
+                    </div>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">4</span>
+                            <span class="font-semibold">What do risk tiers mean?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">Risk tiers summarize relative risk given available data. They do not predict future performance or guarantee safety.</p>
+                    </div>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl">
+                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
+                        <div class="flex items-center">
+                            <span class="faq-number">5</span>
+                            <span class="font-semibold">Will you cover my region or language?</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content mt-4">
+                        <p class="text-slate-300">We aim to expand translations over time. Community contributions are welcome.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="section-header">
+                <h2 class="text-3xl font-bold text-center">Community Feedback</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass testimonial-card rounded-2xl">
+                    <p class="text-slate-300 mb-4">"DeFi Portal has saved me countless hours of research. Their methodology is transparent and the risk assessments are spot on."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">JD</div>
+                        <div class="ml-3">
+                            <p class="font-medium">John Doe</p>
+                            <p class="text-slate-400 text-sm">DeFi Investor</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass testimonial-card rounded-2xl">
+                    <p class="text-slate-300 mb-4">"As someone new to DeFi, the educational content and clear risk indicators have been invaluable for making informed decisions."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">AS</div>
+                        <div class="ml-3">
+                            <p class="font-medium">Alex Smith</p>
+                            <p class="text-slate-400 text-sm">Crypto Enthusiast</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass testimonial-card rounded-2xl">
+                    <p class="text-slate-300 mb-4">"The team's commitment to transparency and education sets them apart in an industry filled with hype and misinformation."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">MJ</div>
+                        <div class="ml-3">
+                            <p class="font-medium">Maria Johnson</p>
+                            <p class="text-slate-400 text-sm">Blockchain Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col items-center">
+                <img class="h-10 w-auto mb-6" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
+                
+                <p class="text-slate-400 text-center max-w-2xl mb-8">
+                    DeFi Portal is an educational platform. None of the information provided constitutes financial, investment, or legal advice. Always do your own research (DYOR).
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-6 mb-8">
+                    <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
+                    <a href="#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
+                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
+                    <a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
+                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white transition-colors">Free Chat Bot</a>
+                </div>
+                
+                <div class="flex gap-4 mb-8">
+                    <!-- Telegram -->
+                    <a href="https://t.me/DeFiPortalChannel" target="_blank" rel="noopener noreferrer" 
+                       class="text-slate-400 hover:text-blue-400 transition-colors" aria-label="Telegram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 2 11 13"></path>
+                            <path d="M22 2 15 22 11 13 2 9l20-7z"></path>
+                        </svg>
+                    </a>
+
+                    <!-- YouTube -->
+                    <a href="https://www.youtube.com/@DeFiPortal" target="_blank" rel="noopener noreferrer" 
+                       class="text-slate-400 hover:text-red-500 transition-colors" aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                             viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a2.999 2.999 0 0 0-2.113-2.12C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.385.566a2.999 2.999 0 0 0-2.113 2.12A31.59 31.59 0 0 0 .5 12a31.59 31.59 0 0 0 .002 5.814 2.999 2.999 0 0 0 2.113 2.12C4.495 20.5 12 20.5 12 20.5s7.505 0 9.385-.566a2.999 2.999 0 0 0 2.113-2.12A31.59 31.59 0 0 0 23.5 12a31.59 31.59 0 0 0-.002-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Twitter -->
+                    <a href="#" target="_blank" rel="noopener noreferrer" 
+                       class="text-slate-400 hover:text-sky-400 transition-colors" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <p class="text-slate-500 text-sm">© 2025 DeFi Portal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Drawer Navigation -->
+    <div class="drawer-overlay fixed inset-0 bg-black/70 z-50" id="drawer-overlay"></div>
+    
+    <div class="drawer fixed top-0 right-0 h-full w-80 bg-slate-900 z-50 p-6" id="drawer">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-xl font-semibold">Quick Navigation</h2>
+            <button type="button" id="close-drawer" aria-label="Close navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        
+        <nav class="space-y-4">
+            <a href="#home" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Home
+            </a>
+            
+            <a href="#about" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                About
+            </a>
+            
+            <a href="#methodology" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                    <path d="M15 10v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path>
+                </svg>
+                Methodology
+            </a>
+            
+            <a href="#faq" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                FAQ
+            </a>
+            
+            <a href="#projects" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-left">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="3" y1="15" x2="21" y2="15"></line>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                    <line x1="15" y1="3" x2="15" y2="21"></line>
+                </svg>
+                Projects
+            </a>
+            
+            <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl 
+                      text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 
+                      focus:outline-none focus:ring-2 focus:ring-blue-400/60 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" 
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="4" y="8" width="16" height="10" rx="2" ry="2"></rect>
+                    <circle cx="9" cy="13" r="1.5"></circle>
+                    <circle cx="15" cy="13" r="1.5"></circle>
+                    <line x1="12" y1="8" x2="12" y2="4"></line>
+                    <circle cx="12" cy="3" r="1"></circle>
+                </svg>
+                Free Chat Bot
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                
+                // Handle internal anchor links
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.getElementById(href.substring(1));
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Update URL without page reload
+                        history.pushState(null, null, href);
+                    }
+                }
+            });
+        });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const isOpen = content.classList.contains('accordion-open');
+                
+                // Close all accordions
+                document.querySelectorAll('.accordion-content').forEach(item => {
+                    item.classList.remove('accordion-open');
+                });
+                
+                // Rotate all icons back
+                document.querySelectorAll('.accordion-toggle svg').forEach(icon => {
+                    icon.style.transform = 'rotate(0deg)';
+                });
+                
+                // If the clicked accordion was not open, open it
+                if (!isOpen) {
+                    content.classList.add('accordion-open');
+                    button.querySelector('svg').style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Drawer functionality
+        const drawer = document.getElementById('drawer');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const closeDrawerBtn = document.getElementById('close-drawer');
+        
+        function openDrawer() {
+            drawer.classList.add('drawer-open');
+            drawerOverlay.classList.add('drawer-overlay-open');
+            document.body.style.overflow = 'hidden';
+            
+            // Set focus to first element in drawer
+            const firstFocusable = drawer.querySelector('a, button');
+            if (firstFocusable) firstFocusable.focus();
+        }
+        
+        function closeDrawer() {
+            drawer.classList.remove('drawer-open');
+            drawerOverlay.classList.remove('drawer-overlay-open');
+            document.body.style.overflow = 'auto';
+            
+            // Return focus to hamburger button
+            hamburgerBtn.focus();
+        }
+        
+        hamburgerBtn.addEventListener('click', openDrawer);
+        closeDrawerBtn.addEventListener('click', closeDrawer);
+        drawerOverlay.addEventListener('click', closeDrawer);
+        
+        // Close drawer with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('drawer-open')) {
+                closeDrawer();
+            }
+        });
+        
+        // Trap focus inside drawer when open
+        drawer.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab' || !drawer.classList.contains('drawer-open')) return;
+            
+            const focusableElements = drawer.querySelectorAll('a[href], button, textarea, input, select');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+            
+            if (e.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    lastElement.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === lastElement) {
+                    firstElement.focus();
+                    e.preventDefault();
+                }
+            }
+        });
+
+        // Add active state to navigation based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('header nav a, .drawer nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
