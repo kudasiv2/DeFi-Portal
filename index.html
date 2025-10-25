@@ -3,180 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DeFi Portal - Curated DeFi opportunities with transparent methodology and risk assessment">
-    <title>DeFi Portal - Curated DeFi Opportunities</title>
+    <meta name="description" content="DeFi Portal - Vetted DeFi opportunities backed by in-depth security analysis.">
+    <title>DeFi Portal - In-Depth Security Analysis & DeFi Opportunities</title>
     <link rel="icon" type="image/png" href="https://files.catbox.moe/c96rly.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-blue: rgba(56, 189, 248, 0.12);
-            --secondary-blue: rgba(30, 58, 138, 0.22);
+            --dark-navy: #010413;
+            --primary-cyan: #00A9E7;
+            --secondary-cyan: #00E1FF;
+            --border-glow: rgba(0, 225, 255, 0.5);
         }
-        
+        html {
+            font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        }
         body {
-            background-color: rgb(2, 6, 23);
-            color: rgb(241, 245, 249);
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--dark-navy);
+            color: rgb(226, 232, 240);
         }
-        
-        .glass {
+        .bg-gradient-hero {
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 169, 231, 0.15), transparent), var(--dark-navy);
+        }
+        .nav-blur {
+            background: rgba(1, 4, 19, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
+            border-bottom: 1px solid rgba(0, 169, 231, 0.2);
         }
-        
-        .soft-glow {
-            box-shadow: 0 0 60px rgba(56, 189, 248, 0.12), 0 0 120px rgba(30, 58, 138, 0.08);
+        .cyan-text {
+            color: var(--primary-cyan);
         }
-        
-        .nav-blur {
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            background: rgba(15, 23, 42, 0.7);
+        .cyan-glow {
+            text-shadow: 0 0 8px rgba(0, 169, 231, 0.7);
         }
-        
         .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: white;
-            background-color: rgb(37, 99, 235);
-            transition: all 0.2s;
+            background-color: var(--primary-cyan);
+            color: var(--dark-navy);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 169, 231, 0.3);
         }
-        
         .btn-primary:hover {
-            background-color: rgb(59, 130, 246);
+            background-color: var(--secondary-cyan);
+            box-shadow: 0 0 25px rgba(0, 169, 231, 0.6);
             transform: translateY(-2px);
         }
-        
-        .btn-primary:focus {
-            outline: none;
-            ring: 2px;
-            ring-color: rgba(96, 165, 250, 0.6);
-        }
-        
         .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: rgb(241, 245, 249);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.2s;
-        }
-        
-        .btn-secondary:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .icon-left {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-        }
-        
-        .faq-number, .guide-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background-color: rgba(56, 189, 248, 0.12);
-            color: rgb(241, 245, 249);
-            font-size: 0.875rem;
+            background-color: transparent;
+            color: var(--primary-cyan);
             font-weight: 600;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-        
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 320ms ease;
-        }
-        
-        .accordion-open {
-            max-height: 1000px;
-        }
-        
-        .drawer {
-            transform: translateX(100%);
-            transition: transform 300ms ease;
-        }
-        
-        .drawer-open {
-            transform: translateX(0);
-        }
-        
-        .drawer-overlay {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 300ms ease;
-        }
-        
-        .drawer-overlay-open {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-            .accordion-content, .drawer, .drawer-overlay {
-                transition: none;
-            }
-        }
-        
-        .bg-gradient-custom {
-            background: radial-gradient(ellipse at top right, rgba(56, 189, 248, 0.10), transparent 35%), 
-                        radial-gradient(ellipse at bottom left, rgba(30, 58, 138, 0.22), transparent 40%), 
-                        rgb(2, 6, 23);
-        }
-        
-        .project-card {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 1px solid var(--primary-cyan);
             transition: all 0.3s ease;
         }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+        .btn-secondary:hover {
+            background-color: rgba(0, 169, 231, 0.1);
+            box-shadow: 0 0 15px rgba(0, 169, 231, 0.3);
+            transform: translateY(-2px);
         }
-        
-        .active-nav {
-            color: rgb(96, 165, 250);
+        .premium-card {
+            background: rgba(13, 23, 42, 0.5);
+            border: 1px solid rgba(0, 169, 231, 0.2);
+            border-radius: 16px;
             position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        
-        .active-nav::after {
+        .premium-card:before {
             content: '';
             position: absolute;
-            bottom: -5px;
+            top: 0;
             left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: rgb(96, 165, 250);
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            border: 1px solid transparent;
+            background: linear-gradient(120deg, var(--secondary-cyan), var(--primary-cyan)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        
-        .section-header {
-            position: relative;
-            margin-bottom: 3rem;
+        .premium-card:hover {
+            transform: translateY(-5px);
+            background: rgba(13, 23, 42, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 169, 231, 0.1);
         }
-        
+        .premium-card:hover:before {
+            opacity: 1;
+        }
         .section-header::after {
             content: '';
             position: absolute;
@@ -184,447 +104,183 @@
             left: 50%;
             transform: translateX(-50%);
             width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, rgba(56, 189, 248, 0.8), rgba(30, 58, 138, 0.8));
-            border-radius: 2px;
+            height: 2px;
+            background: var(--primary-cyan);
+            box-shadow: 0 0 10px var(--border-glow);
         }
-        
-        .risk-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-        
-        .risk-low {
-            background-color: rgba(34, 197, 94, 0.1);
-            color: rgb(34, 197, 94);
-        }
-        
-        .risk-medium {
-            background-color: rgba(245, 158, 11, 0.1);
-            color: rgb(245, 158, 11);
-        }
-        
-        .risk-high {
-            background-color: rgba(239, 68, 68, 0.1);
-            color: rgb(239, 68, 68);
-        }
-        
-        .testimonial-card {
-            padding: 1.5rem;
-            position: relative;
-        }
-        
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 0.5rem;
-            left: 1rem;
-            font-size: 4rem;
-            color: rgba(56, 189, 248, 0.2);
-            line-height: 1;
+        .active-nav {
+            color: var(--primary-cyan);
+            text-shadow: 0 0 5px rgba(0, 169, 231, 0.7);
         }
     </style>
 </head>
-<body class="bg-gradient-custom">
+<body class="bg-dark-navy">
     <!-- Header -->
-    <header class="sticky top-0 z-50 nav-blur border-b border-white/10">
+    <header class="sticky top-0 z-50 nav-blur">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <a href="#home" class="flex-shrink-0 flex items-center">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-2">
                     <img class="h-8 w-auto" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
-                    <span class="ml-2 text-xl font-semibold">DeFi Portal</span>
+                    <span class="text-xl font-bold text-white">DeFi Portal</span>
                 </a>
-                
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex space-x-8">
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
                     <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
                     <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
                     <a href="#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
                     <a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
-                    <a href="audit.html" class="text-slate-300 hover:text-white transition-colors">Audit</a>
-                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
+                    <a href="audit.html" class="text-slate-300 hover:text-white transition-colors">Audit Reports</a>
                 </nav>
-                
-                <!-- Desktop CTA Button -->
                 <div class="hidden md:block">
-                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                        <i class="fa-regular fa-comment-dots icon-left"></i>
-                        Free Chat Bot
+                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-secondary text-sm">
+                        Request Analysis
                     </a>
-                </div>
-                
-                <!-- Mobile Hamburger -->
-                <div class="md:hidden">
-                    <button type="button" class="btn-secondary" aria-label="Open navigation" id="hamburger-btn">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-            <div class="text-center">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">Discover Vetted DeFi Opportunities with Confidence</h1>
-                <p class="text-xl sm:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">We provide transparent, methodology-driven research on decentralized finance projects, helping you make informed decisions.</p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#projects" class="btn-primary">
-                        <i class="fa-solid fa-bolt icon-left"></i>
-                        Explore Projects
-                    </a>
-                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-                        <i class="fa-regular fa-comment-dots icon-left"></i>
-                        Free Chat Bot
-                    </a> 
+        <section id="home" class="relative bg-gradient-hero pt-24 pb-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
+                    Navigating DeFi with <span class="cyan-text cyan-glow">Verifiable Intelligence</span>
+                </h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-300">
+                    We provide institutional-grade security analysis and risk assessment for decentralized finance protocols, empowering you to invest with clarity and confidence.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#projects" class="btn-primary">Explore Vetted Projects</a>
+                    <a href="audit.html" class="btn-secondary">View Audit Reports</a>
                 </div>
+            </div>
+        </section>
 
-                <div class="mt-12 flex justify-center">
-                    <iframe class="rounded-xl shadow-lg w-full max-w-2xl aspect-video"
-                            src="https://www.youtube.com/embed/vuHUjIBBbyQ"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen>
-                    </iframe>
+        <!-- Key Metrics Section -->
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div class="premium-card p-6">
+                    <p class="text-4xl font-bold cyan-text">15+</p>
+                    <p class="mt-2 text-sm font-semibold text-slate-300 tracking-wider uppercase">Projects Analyzed</p>
+                </div>
+                <div class="premium-card p-6">
+                    <p class="text-4xl font-bold cyan-text">250K+</p>
+                    <p class="mt-2 text-sm font-semibold text-slate-300 tracking-wider uppercase">Lines of Code Reviewed</p>
+                </div>
+                <div class="premium-card p-6">
+                    <p class="text-4xl font-bold cyan-text">$50M+</p>
+                    <p class="mt-2 text-sm font-semibold text-slate-300 tracking-wider uppercase">Value Assessed</p>
                 </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="section-header">
-                <h2 class="text-3xl font-bold text-center">About DeFi Portal</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- About cards content here -->
-                 <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-circle-info"></i></div>
-                        <h3 class="text-xl font-semibold">What is DeFi Portal?</h3>
-                    </div>
-                    <p class="text-slate-300">A curated platform that highlights decentralized finance projects after comprehensive review, helping users discover opportunities aligned with their risk tolerance.</p>
+        <section id="about" class="py-24 sm:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center relative section-header">
+                    <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Our Mission: Transparency in DeFi</h2>
                 </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-bullseye"></i></div>
-                        <h3 class="text-xl font-semibold">Our Mission</h3>
+                <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flex gap-4">
+                        <i class="fa-solid fa-shield-halved text-2xl cyan-text mt-1"></i>
+                        <div>
+                            <h3 class="font-semibold text-white">Security-First Approach</h3>
+                            <p class="mt-2 text-slate-400">Our core focus is identifying smart contract vulnerabilities and architectural flaws before they can be exploited.</p>
+                        </div>
                     </div>
-                    <p class="text-slate-300">To elevate due diligence standards in DeFi through transparent criteria, consistent scoring, and accessible summaries for all experience levels.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-lightbulb"></i></div>
-                        <h3 class="text-xl font-semibold">Why We Exist</h3>
+                    <div class="flex gap-4">
+                        <i class="fa-solid fa-magnifying-glass-chart text-2xl cyan-text mt-1"></i>
+                        <div>
+                            <h3 class="font-semibold text-white">Data-Driven Analysis</h3>
+                            <p class="mt-2 text-slate-400">We replace hype with hard data, leveraging on-chain analytics and quantitative risk modeling.</p>
+                        </div>
                     </div>
-                    <p class="text-slate-300">DeFi moves rapidly with fragmented information. We centralize critical signals—security, liquidity, team, and tokenomics—into digestible formats.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-                        <h3 class="text-xl font-semibold">How We Curate</h3>
+                    <div class="flex gap-4">
+                         <i class="fa-solid fa-book-open text-2xl cyan-text mt-1"></i>
+                        <div>
+                            <h3 class="font-semibold text-white">Empowering Education</h3>
+                            <p class="mt-2 text-slate-400">Our reports are designed to be comprehensive for developers yet accessible for investors, fostering an informed community.</p>
+                        </div>
                     </div>
-                    <p class="text-slate-300">Projects undergo rigorous screening using open-source intelligence, on-chain analytics, and third-party audit verification before inclusion.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-square-poll-vertical"></i></div>
-                        <h3 class="text-xl font-semibold">Transparent Scoring</h3>
-                    </div>
-                    <p class="text-slate-300">Each listing displays a risk tier with detailed context. Our public scoring framework evolves with community feedback and market developments.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-book-open"></i></div>
-                        <h3 class="text-xl font-semibold">Independent & Educational</h3>
-                    </div>
-                    <p class="text-slate-300">We provide educational content without financial advice or paid promotions, supporting informed individual decision-making.</p>
                 </div>
             </div>
         </section>
 
         <!-- Methodology Section -->
-        <section id="methodology" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="section-header">
-                <h2 class="text-3xl font-bold text-center">Our Methodology</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Methodology cards content here -->
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-shield-halved"></i></div>
-                        <h3 class="text-xl font-semibold">Security & Audits</h3>
-                    </div>
-                    <p class="text-slate-300">We verify formal audits, open-source contracts, time-locks, multi-sig controls, and assess known vulnerabilities for each protocol category.</p>
+        <section id="methodology" class="py-24 sm:py-32 bg-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center relative section-header">
+                    <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Our Audit Methodology</h2>
                 </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-users"></i></div>
-                        <h3 class="text-xl font-semibold">Team & Governance</h3>
+                <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                     <div class="premium-card p-8">
+                        <h3 class="text-lg font-semibold cyan-text">1. Smart Contract Analysis</h3>
+                        <p class="mt-2 text-slate-300">Line-by-line code review to detect common and novel vulnerabilities, including re-entrancy, integer overflows, and access control issues.</p>
                     </div>
-                    <p class="text-slate-300">We evaluate team transparency, track records, governance mechanisms, and response quality to disclosures or incidents.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-coins"></i></div>
-                        <h3 class="text-xl font-semibold">Tokenomics & Incentives</h3>
+                    <div class="premium-card p-8">
+                        <h3 class="text-lg font-semibold cyan-text">2. Economic Model Assessment</h3>
+                        <p class="mt-2 text-slate-300">Stress-testing tokenomics, incentive mechanisms, and oracle dependencies to identify potential vectors for economic manipulation.</p>
                     </div>
-                    <p class="text-slate-300">We analyze emissions, utility, vesting schedules, treasury design, and long-term incentive sustainability.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-link"></i></div>
-                        <h3 class="text-xl font-semibold">Liquidity & Integrations</h3>
+                    <div class="premium-card p-8">
+                        <h3 class="text-lg font-semibold cyan-text">3. On-Chain Forensics</h3>
+                        <p class="mt-2 text-slate-300">Analysis of wallet distributions, governance control, and protocol health metrics to uncover centralization risks and signs of malicious intent.</p>
                     </div>
-                    <p class="text-slate-300">We review liquidity depth, chain support, oracle design, key integrations, and composability risks.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-wave-square"></i></div>
-                        <h3 class="text-xl font-semibold">On-Chain Health</h3>
+                    <div class="premium-card p-8">
+                        <h3 class="text-lg font-semibold cyan-text">4. Comprehensive Reporting</h3>
+                        <p class="mt-2 text-slate-300">Delivering a detailed audit report with actionable recommendations, severity ratings, and mitigation status for each identified finding.</p>
                     </div>
-                    <p class="text-slate-300">We monitor TVL trends, user activity, address distribution, and anomalous patterns using advanced on-chain analytics.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl project-card">
-                    <div class="flex items-start mb-4">
-                        <div class="icon-left"><i class="fa-solid fa-comments"></i></div>
-                        <h3 class="text-xl font-semibold">Community Engagement</h3>
-                    </div>
-                    <p class="text-slate-300">We assess community size, engagement quality, developer activity, and responsiveness to community feedback.</p>
                 </div>
             </div>
         </section>
-
+        
         <!-- Projects Section -->
-        <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="section-header">
-                <h2 class="text-3xl font-bold text-center">Curated Projects</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                
-                <div class="glass p-6 rounded-2xl ring-1 ring-white/10 project-card">
-                    <div class="flex items-center mb-4">
-                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/loqztx.png" alt="BNBNest logo">
-                        <div class="ml-4">
-                            <h3 class="text-xl font-semibold">BNBNest</h3>
-                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <p class="text-sm text-slate-400">Risk</p>
-                            <p class="font-medium"><span class="risk-badge risk-medium">Medium</span></p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-slate-400">TVL</p>
-                            <p class="font-medium">$0.00</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-400/10 text-yellow-400">
-                            Coming Soon
-                        </span>
-                    </div>
-                    
-                    <a href="audit.html#bnbnest" class="btn-secondary w-full justify-center">
-                        <i class="fa-solid fa-file-contract icon-left"></i>
-                        Details
-                    </a>
+        <section id="projects" class="py-24 sm:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center relative section-header">
+                    <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Vetted & Analyzed Projects</h2>
                 </div>
+                <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Cards -->
+                    <div class="premium-card p-6 flex flex-col">
+                        <div class="flex items-center mb-4">
+                            <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/loqztx.png" alt="BNBNest logo">
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">BNBNest</h3>
+                                <p class="text-sm text-slate-400">Binance Smart Chain</p>
+                            </div>
+                        </div>
+                        <div class="flex-grow space-y-2 text-sm text-slate-300">
+                           <p>A forthcoming DeFi protocol focused on sustainable yield generation through novel staking mechanisms.</p>
+                        </div>
+                        <a href="audit.html#bnbnest" class="mt-6 btn-secondary text-center text-sm w-full">View Full Report</a>
+                    </div>
 
-                <div class="glass p-6 rounded-2xl ring-1 ring-white/10 project-card">
-                    <div class="flex items-center mb-4">
-                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/3g1eaq.png" alt="BNBNexa logo">
-                        <div class="ml-4">
-                            <h3 class="text-xl font-semibold">BNBNexa</h3>
-                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
+                    <div class="premium-card p-6 flex flex-col">
+                        <div class="flex items-center mb-4">
+                            <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/3g1eaq.png" alt="BNBNexa logo">
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">BNBNexa</h3>
+                                <p class="text-sm text-slate-400">Binance Smart Chain</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <p class="text-sm text-slate-400">Risk</p>
-                            <p class="font-medium"><span class="risk-badge risk-medium">Medium</span></p>
+                        <div class="flex-grow space-y-2 text-sm text-slate-300">
+                           <p>A multi-pool staking platform designed to offer diverse risk-reward profiles for liquidity providers.</p>
                         </div>
-                        <div>
-                            <p class="text-sm text-slate-400">TVL</p>
-                            <p class="font-medium">$0.00</p>
-                        </div>
+                        <a href="audit.html#bnbnexa" class="mt-6 btn-secondary text-center text-sm w-full">View Full Report</a>
                     </div>
-                    
-                    <div class="mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-400/10 text-yellow-400">
-                            Coming Soon
-                        </span>
-                    </div>
-                    
-                    <a href="audit.html#bnbnexa" class="btn-secondary w-full justify-center">
-                        <i class="fa-solid fa-file-contract icon-left"></i>
-                        Details
-                    </a>
-                </div>
 
-
-                <div class="glass p-6 rounded-2xl ring-1 ring-white/10 project-card">
-                    <div class="flex items-center mb-4">
-                        <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/ej7abf.png" alt="BNB Capital logo">
-                        <div class="ml-4">
-                            <h3 class="text-xl font-semibold">BNB Capital</h3>
-                            <p class="text-slate-400 text-sm">Binance Smart Chain</p>
+                    <div class="premium-card p-6 flex flex-col">
+                        <div class="flex items-center mb-4">
+                            <img class="h-10 w-10 rounded-full" src="https://files.catbox.moe/ej7abf.png" alt="BNB Capital logo">
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">BNB Capital</h3>
+                                <p class="text-sm text-slate-400">Binance Smart Chain</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <p class="text-sm text-slate-400">Risk</p>
-                            <p class="font-medium"><span class="risk-badge risk-medium">Medium</span></p>
+                        <div class="flex-grow space-y-2 text-sm text-slate-300">
+                           <p>A live yield aggregator protocol that automates capital allocation across various DeFi strategies.</p>
                         </div>
-                        <div>
-                            <p class="text-sm text-slate-400">TVL</p>
-                            <p class="font-medium">450.48 BNB</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-400/10 text-green-400">
-                            Live Now
-                        </span>
-                    </div>
-                    
-                    <a href="audit.html#bnbcapital" class="btn-secondary w-full justify-center">
-                         <i class="fa-solid fa-file-contract icon-left"></i>
-                        Details
-                    </a>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                    <i class="fa-solid fa-plus icon-left"></i>
-                    Load More Projects
-                </a>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="section-header">
-                <h2 class="text-3xl font-bold text-center">Frequently Asked Questions</h2>
-            </div>
-            
-            <div class="space-y-4">
-                <!-- FAQ items content here -->
-                <div class="glass p-6 rounded-2xl">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">1</span>
-                            <span class="font-semibold">Is DeFi Portal financial advice?</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-down transform transition-transform"></i>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">No. DeFi Portal is an educational resource. Always conduct your own research and consider your risk tolerance.</p>
-                    </div>
-                </div>
-                <div class="glass p-6 rounded-2xl">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">2</span>
-                            <span class="font-semibold">How are projects selected?</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-down transform transition-transform"></i>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">Projects are shortlisted via research and must pass baseline checks on security, governance, tokenomics, liquidity, and on-chain health.</p>
-                    </div>
-                </div>
-                <div class="glass p-6 rounded-2xl">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">3</span>
-                            <span class="font-semibold">Do you accept listings or promotions?</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-down transform transition-transform"></i>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">We may review community suggestions but we do not sell listings. Reviews remain independent and criteria-based.</p>
-                    </div>
-                </div>
-                <div class="glass p-6 rounded-2xl">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">4</span>
-                            <span class="font-semibold">What do risk tiers mean?</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-down transform transition-transform"></i>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">Risk tiers summarize relative risk given available data. They do not predict future performance or guarantee safety.</p>
-                    </div>
-                </div>
-                <div class="glass p-6 rounded-2xl">
-                    <button class="accordion-toggle flex items-center justify-between w-full text-left" aria-expanded="false">
-                        <div class="flex items-center">
-                            <span class="faq-number">5</span>
-                            <span class="font-semibold">Will you cover my region or language?</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-down transform transition-transform"></i>
-                    </button>
-                    <div class="accordion-content mt-4">
-                        <p class="text-slate-300">We aim to expand translations over time. Community contributions are welcome.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="section-header">
-                <h2 class="text-3xl font-bold text-center">Community Feedback</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Testimonials content here -->
-                 <div class="glass testimonial-card rounded-2xl">
-                    <p class="text-slate-300 mb-4">"DeFi Portal has saved me countless hours of research. Their methodology is transparent and the risk assessments are spot on."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">JD</div>
-                        <div class="ml-3">
-                            <p class="font-medium">John Doe</p>
-                            <p class="text-slate-400 text-sm">DeFi Investor</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="glass testimonial-card rounded-2xl">
-                    <p class="text-slate-300 mb-4">"As someone new to DeFi, the educational content and clear risk indicators have been invaluable for making informed decisions."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">AS</div>
-                        <div class="ml-3">
-                            <p class="font-medium">Alex Smith</p>
-                            <p class="text-slate-400 text-sm">Crypto Enthusiast</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="glass testimonial-card rounded-2xl">
-                    <p class="text-slate-300 mb-4">"The team's commitment to transparency and education sets them apart in an industry filled with hype and misinformation."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">MJ</div>
-                        <div class="ml-3">
-                            <p class="font-medium">Maria Johnson</p>
-                            <p class="text-slate-400 text-sm">Blockchain Developer</p>
-                        </div>
+                        <a href="audit.html#bnbcapital" class="mt-6 btn-secondary text-center text-sm w-full">View Full Report</a>
                     </div>
                 </div>
             </div>
@@ -632,130 +288,21 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="flex flex-col items-center">
-                <img class="h-10 w-auto mb-6" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
-                
-                <p class="text-slate-400 text-center max-w-2xl mb-8">
-                    DeFi Portal is an educational platform. None of the information provided constitutes financial, investment, or legal advice. Always do your own research (DYOR).
-                </p>
-                
-                <div class="flex flex-wrap justify-center gap-6 mb-8">
-                    <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
-                    <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
-                    <a href="#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
-                    <a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
-                     <a href="audit.html" class="text-slate-300 hover:text-white transition-colors">Audit</a>
-                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
-                </div>
-                
-                <div class="flex gap-4 mb-8">
-                    <a href="https://t.me/DeFiPortalChannel" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-blue-400 transition-colors" aria-label="Telegram"><i class="fab fa-telegram-plane fa-lg"></i></a>
-                    <a href="https://www.youtube.com/@DeFiPortal" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-red-500 transition-colors" aria-label="YouTube"><i class="fab fa-youtube fa-lg"></i></a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-sky-400 transition-colors" aria-label="Twitter"><i class="fab fa-twitter fa-lg"></i></a>
-                </div>
-                
-                <p class="text-slate-500 text-sm">© 2025 DeFi Portal</p>
+    <footer class="border-t border-cyan-500/10 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+            <a href="index.html" class="inline-block">
+                <img class="h-10 w-auto" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
+            </a>
+            <p class="mt-4 text-sm text-slate-400 max-w-lg mx-auto">
+                Disclaimer: DeFi Portal provides security analysis for educational purposes only. This is not financial advice. Always conduct your own comprehensive research (DYOR).
+            </p>
+            <div class="mt-6 flex justify-center gap-6">
+                 <a href="https://t.me/DeFiPortalChannel" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-cyan-400 transition-colors"><i class="fab fa-telegram-plane fa-lg"></i></a>
+                 <a href="https://www.youtube.com/@DeFiPortal" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-cyan-400 transition-colors"><i class="fab fa-youtube fa-lg"></i></a>
+                 <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-cyan-400 transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
             </div>
+            <p class="mt-6 text-xs text-slate-500">© 2025 DeFi Portal</p>
         </div>
     </footer>
-
-    <!-- Drawer Navigation -->
-    <div class="drawer-overlay fixed inset-0 bg-black/70 z-50" id="drawer-overlay"></div>
-    
-    <div class="drawer fixed top-0 right-0 h-full w-80 bg-slate-900 z-50 p-6" id="drawer">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-xl font-semibold">Quick Navigation</h2>
-            <button type="button" id="close-drawer" aria-label="Close navigation">
-                <i class="fa-solid fa-times"></i>
-            </button>
-        </div>
-        
-        <nav class="space-y-4">
-            <a href="#home" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"><i class="fa-solid fa-house icon-left"></i>Home</a>
-            <a href="#about" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"><i class="fa-solid fa-circle-info icon-left"></i>About</a>
-            <a href="#methodology" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"><i class="fa-solid fa-book-open icon-left"></i>Methodology</a>
-            <a href="#projects" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"><i class="fa-solid fa-cubes icon-left"></i>Projects</a>
-            <a href="audit.html" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"><i class="fa-solid fa-file-contract icon-left"></i>Audit</a>
-            <a href="#faq" class="flex items-center p-3 text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"><i class="fa-solid fa-circle-question icon-left"></i>FAQ</a>
-        </nav>
-    </div>
-
-    <script>
-        // Smooth scrolling for anchor links is handled by Tailwind's `scroll-smooth` class on the `<html>` tag.
-
-        // Accordion functionality
-        document.querySelectorAll('.accordion-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                const icon = button.querySelector('i');
-                const isOpen = content.classList.contains('accordion-open');
-                
-                // Close all other accordions
-                document.querySelectorAll('.accordion-content.accordion-open').forEach(openContent => {
-                    if (openContent !== content) {
-                        openContent.classList.remove('accordion-open');
-                        openContent.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
-                    }
-                });
-                
-                // Toggle current accordion
-                content.classList.toggle('accordion-open');
-                icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-            });
-        });
-
-        // Drawer functionality
-        const drawer = document.getElementById('drawer');
-        const drawerOverlay = document.getElementById('drawer-overlay');
-        const hamburgerBtn = document.getElementById('hamburger-btn');
-        const closeDrawerBtn = document.getElementById('close-drawer');
-        
-        function openDrawer() {
-            drawer.classList.add('drawer-open');
-            drawerOverlay.classList.add('drawer-overlay-open');
-            document.body.style.overflow = 'hidden';
-            closeDrawerBtn.focus();
-        }
-        
-        function closeDrawer() {
-            drawer.classList.remove('drawer-open');
-            drawerOverlay.classList.remove('drawer-overlay-open');
-            document.body.style.overflow = 'auto';
-            hamburgerBtn.focus();
-        }
-        
-        hamburgerBtn.addEventListener('click', openDrawer);
-        closeDrawerBtn.addEventListener('click', closeDrawer);
-        drawerOverlay.addEventListener('click', closeDrawer);
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && drawer.classList.contains('drawer-open')) {
-                closeDrawer();
-            }
-        });
-
-        // Active state for navigation on scroll
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('header nav a');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 70) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active-nav');
-                if (link.href.includes(current)) {
-                    link.classList.add('active-nav');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
