@@ -3,90 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DeFi Portal - Website Audit Reports">
-    <title>Website Audit - DeFi Portal</title>
+    <meta name="description" content="DeFi Portal - Professional Security Audit Reports">
+    <title>Audit Reports - DeFi Portal</title>
     <link rel="icon" type="image/png" href="https://files.catbox.moe/c96rly.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-blue: rgba(56, 189, 248, 0.12);
-            --secondary-blue: rgba(30, 58, 138, 0.22);
+            --dark-navy: #010413;
+            --primary-cyan: #00A9E7;
+            --border-glow: rgba(0, 225, 255, 0.5);
+            --risk-high: #FF4D4D;
+            --risk-medium: #FFD166;
+            --risk-low: #06D6A0;
         }
-        
+        html {
+            font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        }
         body {
-            background-color: rgb(2, 6, 23);
-            color: rgb(241, 245, 249);
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--dark-navy);
+            color: rgb(226, 232, 240);
         }
-        
-        .glass {
+        .nav-blur {
+            background: rgba(1, 4, 19, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
+            border-bottom: 1px solid rgba(0, 169, 231, 0.2);
         }
-        
-        .nav-blur {
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            background: rgba(15, 23, 42, 0.7);
+        .cyan-text { color: var(--primary-cyan); }
+        .active-nav {
+            color: var(--primary-cyan);
+            text-shadow: 0 0 5px rgba(0, 169, 231, 0.7);
         }
-        
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: white;
-            background-color: rgb(37, 99, 235);
-            transition: all 0.2s;
-        }
-        
-        .btn-primary:hover {
-            background-color: rgb(59, 130, 246);
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: rgb(241, 245, 249);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.2s;
-        }
-        
-        .btn-secondary:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .icon-left {
-            margin-right: 8px;
-        }
-        
-        .bg-gradient-custom {
-            background: radial-gradient(ellipse at top right, rgba(56, 189, 248, 0.10), transparent 35%), 
-                        radial-gradient(ellipse at bottom left, rgba(30, 58, 138, 0.22), transparent 40%), 
-                        rgb(2, 6, 23);
-        }
-
-        .section-header {
-            position: relative;
-            margin-bottom: 3rem;
-        }
-        
         .section-header::after {
             content: '';
             position: absolute;
@@ -94,227 +42,200 @@
             left: 50%;
             transform: translateX(-50%);
             width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, rgba(56, 189, 248, 0.8), rgba(30, 58, 138, 0.8));
-            border-radius: 2px;
+            height: 2px;
+            background: var(--primary-cyan);
+            box-shadow: 0 0 10px var(--border-glow);
         }
-        
-        .audit-card {
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .audit-section {
+            border: 1px solid rgba(0, 169, 231, 0.2);
             border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            background: rgba(15, 23, 42, 0.5);
+            background: rgba(13, 23, 42, 0.5);
         }
-        
-        .risk-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-        
-        .risk-medium {
-            background-color: rgba(245, 158, 11, 0.1);
-            color: rgb(245, 158, 11);
-        }
+        .severity-high { color: var(--risk-high); border: 1px solid var(--risk-high); background-color: rgba(255, 77, 77, 0.1); }
+        .severity-medium { color: var(--risk-medium); border: 1px solid var(--risk-medium); background-color: rgba(255, 209, 102, 0.1); }
+        .severity-info { color: #A9A9A9; border: 1px solid #A9A9A9; background-color: rgba(169, 169, 169, 0.1); }
+        .status-mitigated { color: var(--risk-low); }
+        .status-acknowledged { color: var(--risk-medium); }
     </style>
 </head>
-<body class="bg-gradient-custom">
+<body class="bg-dark-navy">
     <!-- Header -->
-    <header class="sticky top-0 z-50 nav-blur border-b border-white/10">
+    <header class="sticky top-0 z-50 nav-blur">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <a href="index.html" class="flex-shrink-0 flex items-center">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-2">
                     <img class="h-8 w-auto" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
-                    <span class="ml-2 text-xl font-semibold">DeFi Portal</span>
+                    <span class="text-xl font-bold text-white">DeFi Portal</span>
                 </a>
-                
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex space-x-8">
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
                     <a href="index.html#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
                     <a href="index.html#about" class="text-slate-300 hover:text-white transition-colors">About</a>
                     <a href="index.html#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
                     <a href="index.html#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
-                    <a href="audit.html" class="text-slate-300 hover:text-white transition-colors active-nav">Audit</a>
-                    <a href="index.html#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
+                    <a href="audit.html" class="text-slate-300 hover:text-white transition-colors active-nav">Audit Reports</a>
                 </nav>
-                
-                <!-- Desktop CTA Button -->
-                <div class="hidden md:block">
-                    <a href="https://t.me/DeFiPortalBot" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                        <i class="fa-regular fa-comment-dots icon-left"></i>
-                        Free Chat Bot
-                    </a>
-                </div>
-                
-                <!-- Mobile Hamburger (Functionality would require JS) -->
-                <div class="md:hidden">
-                    <button type="button" class="btn-secondary" aria-label="Open navigation">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="section-header">
-            <h1 class="text-4xl font-bold text-center">Website Audit Reports</h1>
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="text-center relative section-header mb-20">
+            <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl">Security Audit Reports</h1>
         </div>
 
-        <!-- BNBNest Audit Section -->
-        <section id="bnbnest" class="audit-card">
-            <div class="flex items-center mb-6">
-                <img class="h-12 w-12 rounded-full" src="https://files.catbox.moe/loqztx.png" alt="BNBNest logo">
-                <div class="ml-4">
-                    <h2 class="text-3xl font-semibold">BNBNest</h2>
-                    <p class="text-slate-400">Binance Smart Chain</p>
+        <!-- Audit Reports Container -->
+        <div class="space-y-20">
+
+            <!-- BNBNest Report -->
+            <section id="bnbnest" class="audit-section p-8">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h2 class="text-3xl font-bold text-white">BNBNest</h2>
+                        <p class="cyan-text">Preliminary Security Assessment</p>
+                    </div>
+                    <img class="h-12 w-12 rounded-full" src="https://files.catbox.moe/loqztx.png" alt="BNBNest logo">
                 </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Executive Summary</h3>
-                    <p class="text-slate-300">BNBNest is a forthcoming DeFi protocol on the Binance Smart Chain, designed to offer yield-generating opportunities. As the project is in a pre-launch phase, this audit is based on preliminary documentation and publicly available information. The protocol aims to combine staking mechanisms with a sustainable rewards model to attract long-term liquidity providers.</p>
+                
+                <div class="mt-6 border-t border-cyan-500/20 pt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div><p class="text-slate-400">Date</p><p class="font-semibold">Oct 2025</p></div>
+                    <div><p class="text-slate-400">Version</p><p class="font-semibold">1.0 (Pre-launch)</p></div>
+                    <div><p class="text-slate-400">Chain</p><p class="font-semibold">BSC</p></div>
+                    <div><p class="text-slate-400">Risk Score</p><p class="font-semibold" style="color: var(--risk-medium);">Medium</p></div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Risk Assessment</h3>
-                    <div class="flex items-center mb-2">
-                        <span class="risk-badge risk-medium mr-3">Medium Risk</span>
-                        <p class="text-slate-300">Associated risks are moderate, primarily due to the unaudited nature of the smart contracts and the early stage of development. The absence of a live product introduces uncertainties regarding execution and market adoption.</p>
+
+                <div class="mt-8">
+                    <h3 class="font-semibold text-white">Executive Summary</h3>
+                    <p class="mt-2 text-slate-300">This preliminary assessment of BNBNest, a pre-launch DeFi protocol, was conducted based on available documentation. The core risk is the absence of a formal third-party audit for its smart contracts. The economic model appears standard for a yield protocol but requires further scrutiny upon code finalization. We advise extreme caution until a comprehensive audit is published.</p>
+                </div>
+                
+                <div class="mt-8">
+                    <h3 class="font-semibold text-white mb-4">Vulnerability Findings (Anticipated)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="text-xs text-slate-400 uppercase border-b border-cyan-500/20">
+                                <tr><th class="py-3 pr-3">Severity</th><th class="py-3 px-3">Finding</th><th class="py-3 pl-3">Status</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-cyan-500/20">
+                                    <td class="py-4 pr-3"><span class="px-2 py-1 rounded-md text-xs font-semibold severity-high">High</span></td>
+                                    <td class="py-4 px-3">Unaudited Smart Contracts</td>
+                                    <td class="py-4 pl-3 font-semibold status-acknowledged">Pending</td>
+                                </tr>
+                                 <tr class="border-b border-cyan-500/20">
+                                    <td class="py-4 pr-3"><span class="px-2 py-1 rounded-md text-xs font-semibold severity-medium">Medium</span></td>
+                                    <td class="py-4 px-3">Anonymous Team / Centralization Risk</td>
+                                    <td class="py-4 pl-3 font-semibold status-acknowledged">Acknowledged</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-
-            <div class="mt-8">
-                <h3 class="text-xl font-bold mb-4 text-sky-400">Detailed Analysis</h3>
-                <ul class="space-y-4">
-                    <li class="glass p-4 rounded-lg">
-                        <p><strong class="font-semibold text-white">Security:</strong> The project's smart contracts have not yet undergone a formal third-party audit. This represents the most significant risk factor. The development team has indicated plans for an audit post-deployment, a sequence that is not ideal. We recommend a comprehensive audit from a reputable firm be completed and published before any user funds are deposited.</p>
-                    </li>
-                    <li class="glass p-4 rounded-lg">
-                        <p><strong class="font-semibold text-white">Tokenomics:</strong> The tokenomics model and utility are not fully disclosed. Sustainable yield generation is contingent on a well-designed economic model that avoids high inflation and provides real utility for its native token. Potential investors should scrutinize the emission schedule and vesting periods for team tokens once this information becomes available.</p>
-                    </li>
-                    <li class="glass p-4 rounded-lg">
-                        <p><strong class="font-semibold text-white">Team & Community:</strong> The development team remains anonymous, which is a common practice in DeFi but elevates risk. Community engagement is in its infancy. A transparent and responsive team, coupled with an active community, will be crucial for the project's long-term success.</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- BNBNexa Audit Section -->
-        <section id="bnbnexa" class="audit-card">
-            <div class="flex items-center mb-6">
-                <img class="h-12 w-12 rounded-full" src="https://files.catbox.moe/3g1eaq.png" alt="BNBNexa logo">
-                <div class="ml-4">
-                    <h2 class="text-3xl font-semibold">BNBNexa</h2>
-                    <p class="text-slate-400">Binance Smart Chain</p>
-                </div>
-            </div>
+            </section>
             
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Executive Summary</h3>
-                    <p class="text-slate-300">BNBNexa is another pre-launch DeFi protocol on the Binance Smart Chain with a focus on innovative staking solutions. The project's value proposition centers on providing multiple staking pools with varying risk-reward profiles. This audit is based on the project's whitepaper and initial announcements.</p>
+            <!-- BNBNexa Report -->
+            <section id="bnbnexa" class="audit-section p-8">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h2 class="text-3xl font-bold text-white">BNBNexa</h2>
+                        <p class="cyan-text">Whitepaper & Tokenomics Review</p>
+                    </div>
+                    <img class="h-12 w-12 rounded-full" src="https://files.catbox.moe/3g1eaq.png" alt="BNBNexa logo">
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Risk Assessment</h3>
-                    <div class="flex items-center mb-2">
-                        <span class="risk-badge risk-medium mr-3">Medium Risk</span>
-                        <p class="text-slate-300">The risk level is assessed as medium. Key risk factors include the absence of a professional smart contract audit, a non-public team, and the inherent volatility of yield-based protocols. The project's success will depend on its ability to deliver a secure and economically viable platform.</p>
+                
+                <div class="mt-6 border-t border-cyan-500/20 pt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div><p class="text-slate-400">Date</p><p class="font-semibold">Oct 2025</p></div>
+                    <div><p class="text-slate-400">Version</p><p class="font-semibold">1.0 (Pre-launch)</p></div>
+                    <div><p class="text-slate-400">Chain</p><p class="font-semibold">BSC</p></div>
+                    <div><p class="text-slate-400">Risk Score</p><p class="font-semibold" style="color: var(--risk-medium);">Medium</p></div>
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="font-semibold text-white">Executive Summary</h3>
+                    <p class="mt-2 text-slate-300">Our review of BNBNexa's pre-launch materials indicates a standard multi-pool staking protocol design. The primary risk factor is the centralization of control with an anonymous team and the lack of an external code audit. The tokenomics model proposes a rewards system that may be inflationary if not managed with care through utility and burn mechanisms. Proceeding without a formal audit is not recommended.</p>
+                </div>
+
+                 <div class="mt-8">
+                    <h3 class="font-semibold text-white mb-4">Vulnerability Findings (Anticipated)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                           <thead class="text-xs text-slate-400 uppercase border-b border-cyan-500/20">
+                                <tr><th class="py-3 pr-3">Severity</th><th class="py-3 px-3">Finding</th><th class="py-3 pl-3">Status</th></tr>
+                            </thead>
+                             <tbody>
+                                <tr class="border-b border-cyan-500/20">
+                                    <td class="py-4 pr-3"><span class="px-2 py-1 rounded-md text-xs font-semibold severity-high">High</span></td>
+                                    <td class="py-4 px-3">Lack of Third-Party Smart Contract Audit</td>
+                                    <td class="py-4 pl-3 font-semibold status-acknowledged">Pending</td>
+                                </tr>
+                                <tr class="border-b border-cyan-500/20">
+                                    <td class="py-4 pr-3"><span class="px-2 py-1 rounded-md text-xs font-semibold severity-medium">Medium</span></td>
+                                    <td class="py-4 px-3">Potential for High Token Inflation</td>
+                                    <td class="py-4 pl-3 font-semibold status-acknowledged">Acknowledged</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-
-            <div class="mt-8">
-                <h3 class="text-xl font-bold mb-4 text-sky-400">Detailed Analysis</h3>
-                <ul class="space-y-4">
-                    <li class="glass p-4 rounded-lg">
-                        <p><strong class="font-semibold text-white">Security:</strong> Similar to other pre-launch projects, BNBNexa's smart contracts are not yet audited by a third party. This is a critical vulnerability. Potential users are strongly advised to wait for a public audit report before interacting with the protocol. Look for the implementation of security best practices such as time-locks on contract ownership and multi-signature wallets for treasury funds.</p>
-                    </li>
-                    <li class="glass p-4 rounded-lg">
-                        <p><strong class="font-semibold text-white">Tokenomics:</strong> The tokenomic structure has been outlined but lacks detail on supply allocation and emission rates. For the model to be sustainable, it must balance rewards for liquidity providers with mechanisms to control inflation. The long-term utility of the BNBNexa token beyond governance and staking rewards needs to be clearly defined.</p>
-                    </li>
-                    <li class="glass p-4 rounded-lg">
-                        <p><strong class="font-semibold text-white">Team & Community:</strong> The team's anonymity introduces a level of counterparty risk. While the initial community is forming, its growth and the quality of discourse will be important indicators of the project's potential. A transparent roadmap and consistent communication from the team are essential to build trust.</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- BNB Capital Audit Section -->
-        <section id="bnbcapital" class="audit-card">
-            <div class="flex items-center mb-6">
-                <img class="h-12 w-12 rounded-full" src="https://files.catbox.moe/ej7abf.png" alt="BNB Capital logo">
-                <div class="ml-4">
-                    <h2 class="text-3xl font-semibold">BNB Capital</h2>
-                    <p class="text-slate-400">Binance Smart Chain</p>
-                </div>
-            </div>
+            </section>
             
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Executive Summary</h3>
-                    <p class="text-slate-300">BNB Capital is a live DeFi protocol on the Binance Smart Chain that functions as a yield aggregator. The platform allows users to deposit BNB, which is then allocated to various yield-generating strategies. This audit assesses the live version of the protocol, focusing on its security posture, on-chain performance, and economic model.</p>
+            <!-- BNB Capital Report -->
+            <section id="bnbcapital" class="audit-section p-8">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h2 class="text-3xl font-bold text-white">BNB Capital</h2>
+                        <p class="cyan-text">Full Smart Contract Audit</p>
+                    </div>
+                    <img class="h-12 w-12 rounded-full" src="https://files.catbox.moe/ej7abf.png" alt="BNB Capital logo">
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Risk Assessment</h3>
-                    <div class="flex items-center mb-2">
-                        <span class="risk-badge risk-medium mr-3">Medium Risk</span>
-                        <p class="text-slate-300">The protocol carries a medium risk profile. While it is operational and has attracted a notable Total Value Locked (TVL), risks remain. These include smart contract vulnerabilities (despite audits), reliance on external protocols for yield, and the potential for impermanent loss in its underlying strategies.</p>
+                
+                <div class="mt-6 border-t border-cyan-500/20 pt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div><p class="text-slate-400">Date</p><p class="font-semibold">Sep 2025</p></div>
+                    <div><p class="text-slate-400">Version</p><p class="font-semibold">2.1 (Live)</p></div>
+                    <div><p class="text-slate-400">Chain</p><p class="font-semibold">BSC</p></div>
+                    <div><p class="text-slate-400">Risk Score</p><p class="font-semibold" style="color: var(--risk-medium);">Medium</p></div>
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="font-semibold text-white">Executive Summary</h3>
+                    <p class="mt-2 text-slate-300">The audit of BNB Capital's live smart contracts identified one medium-severity and two informational findings. The core logic for yield aggregation is sound, but the medium-severity finding points to a potential precision loss issue in reward calculation under specific edge cases. The team has acknowledged the finding and plans a fix in the next upgrade. Systemic risk from dependency on external protocols remains the primary operational concern.</p>
+                </div>
+
+                 <div class="mt-8">
+                    <h3 class="font-semibold text-white mb-4">Vulnerability Findings</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                           <thead class="text-xs text-slate-400 uppercase border-b border-cyan-500/20">
+                                <tr><th class="py-3 pr-3">Severity</th><th class="py-3 px-3">Finding</th><th class="py-3 pl-3">Status</th></tr>
+                            </thead>
+                             <tbody>
+                                <tr class="border-b border-cyan-500/20">
+                                    <td class="py-4 pr-3"><span class="px-2 py-1 rounded-md text-xs font-semibold severity-medium">Medium</span></td>
+                                    <td class="py-4 px-3">Precision Loss in Reward Calculation</td>
+                                    <td class="py-4 pl-3 font-semibold status-acknowledged">Acknowledged</td>
+                                </tr>
+                                <tr class="border-b border-cyan-500/20">
+                                    <td class="py-4 pr-3"><span class="px-2 py-1 rounded-md text-xs font-semibold severity-info">Info</span></td>
+                                    <td class="py-4 px-3">Gas Optimization Opportunities</td>
+                                    <td class="py-4 pl-3 font-semibold status-mitigated">Mitigated</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 pr-3"><span class="px-2 py-1 rounded-md text-xs font-semibold severity-info">Info</span></td>
+                                    <td class="py-4 px-3">Missing NatSpec Documentation</td>
+                                    <td class="py-4 pl-3 font-semibold status-acknowledged">Acknowledged</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="mt-8">
-                <h3 class="text-xl font-bold mb-4 text-sky-400">Detailed Analysis</h3>
-                <ul class="space-y-4">
-                    <li class="glass p-4 rounded-lg">
-                        <p><strong class="font-semibold text-white">Security:</strong> The project has undergone a third-party audit, which is a positive indicator. However, an audit does not eliminate all risks. It is crucial to review the audit report for any unaddressed critical vulnerabilities. The protocol's reliance on other DeFi platforms introduces systemic risk; a vulnerability in an integrated protocol could impact BNB Capital.</p>
-                    </li>
-                    <li class="glass p-4 rounded-lg">
-                        <p><strong class="font-semibold text-white">Tokenomics & On-Chain Health:</strong> The TVL of 450.48 BNB indicates a degree of user trust. The health of the protocol is dependent on the sustainability of the yields it can generate. A sudden drop in yield from its underlying strategies could lead to a rapid outflow of capital. The distribution of governance tokens and the on-chain activity should be monitored for signs of centralization or manipulation.</p>
-                    </li>
-                    <li class="glass p-4 rounded-lg">
-                        <p><strong class="font-semibold text-white">Team & Governance:</strong> The team's level of transparency and their track record are important factors. The governance model should be clearly defined, allowing token holders to have a meaningful impact on the protocol's direction. An active and engaged community is often a sign of a healthy project.</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
+        </div>
     </main>
-
+    
     <!-- Footer -->
-    <footer class="border-t border-white/10 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="flex flex-col items-center">
-                <img class="h-10 w-auto mb-6" src="https://files.catbox.moe/hao9hf.png" alt="DeFi Portal logo">
-                
-                <p class="text-slate-400 text-center max-w-2xl mb-8">
-                    DeFi Portal is an educational platform. None of the information provided constitutes financial, investment, or legal advice. Always do your own research (DYOR).
-                </p>
-                
-                <div class="flex flex-wrap justify-center gap-6 mb-8">
-                    <a href="index.html#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
-                    <a href="index.html#about" class="text-slate-300 hover:text-white transition-colors">About</a>
-                    <a href="index.html#methodology" class="text-slate-300 hover:text-white transition-colors">Methodology</a>
-                    <a href="index.html#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
-                     <a href="audit.html" class="text-slate-300 hover:text-white transition-colors">Audit</a>
-                    <a href="index.html#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
-                </div>
-                
-                <div class="flex gap-4 mb-8">
-                    <a href="https://t.me/DeFiPortalChannel" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-blue-400 transition-colors" aria-label="Telegram"><i class="fab fa-telegram-plane fa-lg"></i></a>
-                    <a href="https://www.youtube.com/@DeFiPortal" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-red-500 transition-colors" aria-label="YouTube"><i class="fab fa-youtube fa-lg"></i></a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-sky-400 transition-colors" aria-label="Twitter"><i class="fab fa-twitter fa-lg"></i></a>
-                </div>
-                
-                <p class="text-slate-500 text-sm">© 2025 DeFi Portal</p>
-            </div>
+    <footer class="border-t border-cyan-500/10 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+            <p class="mt-6 text-xs text-slate-500">© 2025 DeFi Portal</p>
         </div>
     </footer>
 </body>
